@@ -6,8 +6,17 @@ exports.getAllProducts = (req,res,next) => {
       if (err) {
         console.log(err);
       }
-      console.log(result);
-      res.json({products: result[0], images: result[1]});
+    //   console.log(result);
+      const resp = [];
+      for(let i=0;i<result[0].length;i++){
+        const product = {
+            product: result[0][i],
+            images: result[1].filter(item => item.productId == result[0][i].productId)
+        }
+        resp.push(product);
+      }
+      console.log(resp,"This is the result");
+      res.json(resp);
     });
 };
 
@@ -17,7 +26,15 @@ exports.getProductByid = (req,res) => {
     con.query(query, [req.params.id,req.params.id],(err,result) => {
         if(err) throw err;
 
-        console.log(result);
-        res.json({product: result[0], images: result[1]});
-    }) 
-};
+        const resp = [];
+        for(let i=0;i<result[0].length;i++){
+            const product = {
+                product: result[0][i],
+                images: result[1].filter(item => item.productId == result[0][i].productId)
+            }
+            resp.push(product);
+        }
+      console.log(resp,"This is the result");
+      res.json(resp);
+    });
+}; 
