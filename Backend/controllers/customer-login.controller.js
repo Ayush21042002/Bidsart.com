@@ -12,7 +12,7 @@ exports.customerLogin = (req, resp, next) => {
     
     // console.log(result);
 
-    if(result){
+    if(result.length > 0){
         _Bcrypt.compare(req.body.password, result[0].password, (err,ans) => {
             passwordCorrect = ans;
             if(!passwordCorrect){

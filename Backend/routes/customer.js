@@ -6,9 +6,9 @@ const customerFetch = require("../controllers/fetch-customer.controller");
 
 const Router = express.Router();
 
-Router.get('/customerDetails/:id',customerFetch.getCustomerById);
+Router.get('/details/:id',customerAuth,customerFetch.getCustomerById);
 
-Router.get('/getCustomers', customerFetch.getAllCustomers);
+Router.get('/details', customerFetch.getAllCustomers);
 
 Router.post('/login',customerLogin.customerLogin);
 

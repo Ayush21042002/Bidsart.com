@@ -47,7 +47,7 @@ exports.createCustomer = (req, resp) => {
             con.query("INSERT INTO cust_address SET ?", cust_address, (err, res) => {
               if (err) throw err;
               // console.log(res);
-              resp.send("HELLO");
+              resp.send("Successfully added");
             });
           });
         });
