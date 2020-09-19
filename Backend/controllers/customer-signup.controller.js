@@ -27,20 +27,30 @@ exports.createCustomer = (req, resp) => {
           contact: req.body.contact,
           countrycode: req.body.countrycode,
         };
+        
+        const cust_address = {
+          customerId: userId,
+          houseNo: req.body.houseno,
+          addressLine: req.body.addressLine,
+          city: req.body.city,
+          state: req.body.state,
+          country: req.body.country,
+          landmark: req.body.landmark,
+        }
 
         con.query("INSERT INTO customer SET ?", customer, (err, res) => {
           if (err) throw err;
-          console.log(res);
+          // console.log(res);
+          con.query("INSERT INTO contact SET ?", contact, (err, res) => {
+            if (err) throw err;
+            // console.log(res);
+            con.query("INSERT INTO cust_address SET ?", cust_address, (err, res) => {
+              if (err) throw err;
+              // console.log(res);
+              resp.send("HELLO");
+            });
+          });
         });
-
-        con.query("INSERT INTO contact SET ?", contact, (err, res) => {
-          if (err) throw err;
-          console.log(res);
-        });
-
-        resp.send("HELLO");
-        console.log(result);
-      }
-    );
+      });
   });
 };
