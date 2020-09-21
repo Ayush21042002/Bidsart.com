@@ -7,7 +7,9 @@ const Router = express.Router();
 
 Router.get('/', fetchProducts.getAllProducts);
 
-Router.get('/:id', fetchProducts.getProductByid);
+Router.get('/:id', fetchProducts.getProductByProductId);
+
+Router.get("/sellerProducts/:sellerId",fetchProducts.getAllProductsBySeller);
 
 Router.post('/addProduct', sellerAuth, extractFile,(req,res) => {
     // Here the seller can add the product to the database
