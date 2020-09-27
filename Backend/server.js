@@ -1,9 +1,14 @@
 // importing necessary modules
 const express = require('express');
+const path = require("path");
+
+const cors = require("cors");
 
 // Calls the express function "express()" and puts new Express application inside the app variable
 const app = express(); 
 const con = require('./database/db');
+
+app.use(cors());
 // Setting the middleware for json objects
 // parse incoming Request Object as a JSON Object
 app.use(express.json());
@@ -13,9 +18,14 @@ const customerRoutes = require('./routes/customer');
 const sellerRoutes = require("./routes/seller");
 const productRoutes = require("./routes/products");
 
+
+app.use("/images", express.static(path.resolve(__dirname, "images")));
+
+
 app.use('/seller', sellerRoutes);
 app.use('/', productRoutes);
 app.use('/customer', customerRoutes);
+
 
 // whatever is in the environment variable PORT, or 3000 if there's nothing there.
 const port = process.env.port || 3000; 
