@@ -3,7 +3,7 @@ const con = require('../database/db');
 const sellerAuth = require('../Middleware/verify-seller');
 const extractFile = require('../Middleware/file-upload');
 const fetchProducts = require('../controllers/fetch-products.controller');
-const addProduct  =require("../controllers/add-product.controller");
+const addProduct = require("../controllers/add-product.controller");
 const Router = express.Router();
 
 Router.get('/', fetchProducts.getAllProducts);

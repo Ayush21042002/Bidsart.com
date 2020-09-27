@@ -60,7 +60,7 @@ exports.getAllProductsBySeller = (req,res) => {
           title: result[0][i].title,
           description: result[0][i].description,
           category: result[0][i].category,
-          images: result[1].filter(item => item.productId == result[0][i].productId)
+          images: result[i].filter(item => item.productId == result[0][i].productId)
         }
         resp.push(product);
       }
