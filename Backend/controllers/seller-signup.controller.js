@@ -11,6 +11,7 @@ exports.createSeller = (req, resp) => {
         email: req.body.email,
         password:  hash
     }
+    // console.log(user);
     con.query(
         "INSERT INTO user SET ?",user,
         (err,result)=> {    //result status after running sql query.e.g(1 row effected and all)
@@ -19,20 +20,22 @@ exports.createSeller = (req, resp) => {
             const seller= {
                sid:userId,
                company_name:req.body.company_name,
-               building_no:req.body.building_no,
+               building_no:Number(req.body.building_no),
                add1:req.body.add1,
                add2:req.body.add2,
-               state:req.body.city,
+               state:req.body.state,
                country:req.body.country,
-               zip:req.body.zip,
+               zip:Number(req.body.zip),
                landmark:req.body.landmark,
                pan_num:req.body.pan_num,
                aadhar_num:req.body.aadhar_num
             };
+            // console.log(seller);
             con.query("INSERT INTO seller SET ?",
             seller,(err,res)=>{
                 if(err) throw err;
-              resp.send("Successfully added");
+
+                resp.send("Successfully added");
             }
              )
         }
