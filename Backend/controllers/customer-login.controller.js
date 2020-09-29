@@ -1,7 +1,6 @@
 const _Bcrypt = require("bcryptjs");
 
 const jwt = require("jsonwebtoken");
-const { threadId } = require("../database/db");
 const con = require("../database/db");
 
 exports.customerLogin = (req, resp, next) => {
