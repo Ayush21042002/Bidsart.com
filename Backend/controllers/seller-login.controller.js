@@ -29,7 +29,7 @@ exports.sellerLogin = (req, resp, next) => {
                     if (res.length > 0) {
                     const token = jwt.sign(
                         { email: result[0].email, sid: result[0].userId },
-                        "Thisistheverificatonsecretkeyforseller",
+                        "Thisistheverificatonsecretkeyforcustomers",
                         { expiresIn: "1h" }
                     );
                     resp.status(200).json({
@@ -37,11 +37,7 @@ exports.sellerLogin = (req, resp, next) => {
                         expirationTime: 3600,
                         sid: result[0].userId,
                         email: result[0].email,
-                        SellerName: {
-                        fname: res[0].fname,
-                        mname: res[0].mname,
-                        lname: res[0].lname,
-                        },
+                        companyName: res[0].company_name,
                     });
                     } else {
                     resp.status(401).send("No seller from these credentials");

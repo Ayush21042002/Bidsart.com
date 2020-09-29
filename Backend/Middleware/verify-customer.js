@@ -13,9 +13,6 @@ module.exports = (req, res, next) => {
         //the request object, whichever route using this middleware , will receive this userData, as request
         //is transferred to next() middleware.
         req.customerData = { email: decodedToken.email, customerId: decodedToken.customerId };
-        if(Number(req.params.id) != Number(decodedToken.customerId)){
-            throw err;
-        }
         next();
     } catch (error) {
         res.status(401).json({
