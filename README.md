@@ -1,29 +1,25 @@
-# BidsArt-1
-google 
-Hello yash
-## Added a readme
+# BIDSART.COM
 
+**``` A ECOMMERCE BIDDING WEBSITE FOR INDIAN ARTS, CRAFTS AND MANY MORE ARTISTIC WORKS WHICH ARE SOLD IN A AUCTION WHERE PEOPLE CAN BID```**
 
-Editing commands
+## TECHNOLOGIES USED
 
-git init
+* ### Frontend
+  * HTML
+  * CSS
+  * JS
+  * Bootstrap
 
-git remote add origin URL
+* ### Backend
+  * NodeJS
+  * Express
+  * Multer
+  * JWT
+  * BcryprtJS
+  
+* ### DBMS
+  * MySQL server
 
-git pull origin 
-
-## For any new change create a branch
-
-git branch branch_name
-
-git checkout branch_name
-
-After Editing in the branch
-
-git add. 
-git commit -m ""
-
-git push origin branch_name
-
-
-Tried branch editing
+* ### Others:
+  * Postman: 
+    ``` for testing purposes ```
