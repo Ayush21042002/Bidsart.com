@@ -11,7 +11,7 @@ exports.addProduct = (req,resp) => {
 
     const productId = result.insertId;
 
-    const sellerId = Number(req.body.sellerId);
+    const sellerId = Number(req.sellerData.sid);
 
     con.query("INSERT INTO has_products(sellerId,productId) VALUES (?)", [[sellerId,productId]],(err,res) => {
       if(err) throw err;
