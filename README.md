@@ -11,7 +11,7 @@
   * Bootstrap
 
 * ### Backend
-  * NodeJS
+  * Node.js
   * Express
   * Multer
   * JWT
