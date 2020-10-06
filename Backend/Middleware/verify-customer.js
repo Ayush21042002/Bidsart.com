@@ -7,7 +7,6 @@ module.exports = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, "Thisistheverificatonsecretkeyforcustomers");
-        console.log(decodedToken);
 
         //here to get the token and make it avaible to all the further procedure, we added a field to 
         //the request object, whichever route using this middleware , will receive this userData, as request

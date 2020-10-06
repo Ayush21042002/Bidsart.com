@@ -29,7 +29,7 @@ exports.sellerLogin = (req, resp, next) => {
                     if (res.length > 0) {
                     const token = jwt.sign(
                         { email: result[0].email, sid: result[0].userId },
-                        "Thisistheverificatonsecretkeyforcustomers",
+                        "Thisistheverificatonsecretkeyforsellers",
                         { expiresIn: "1h" }
                     );
                     resp.status(200).json({

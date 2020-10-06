@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
         
-        const decodedToken = jwt.verify(token, "Thisistheverificatonsecretkeyforcustomers");
+        const decodedToken = jwt.verify(token, "Thisistheverificatonsecretkeyforsellers");
         
 
         //here to get the token and make it avaible to all the further procedure, we added a field to 
