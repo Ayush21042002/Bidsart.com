@@ -1,6 +1,8 @@
 // importing necessary modules
 const express = require('express');
 const path = require("path");
+const http = require("http");
+const socketio = require("socket.io");
 
 const cors = require("cors");
 
@@ -27,6 +29,12 @@ app.use('/', productRoutes);
 app.use('/customer', customerRoutes);
 
 
+const server = http.createServer(app);
+
+// Chatting while auction
+
+require("./chat")(server);
+
 // whatever is in the environment variable PORT, or 3000 if there's nothing there.
 const port = process.env.port || 3000; 
 
@@ -34,6 +42,6 @@ const port = process.env.port || 3000;
 con.connect(function (err) {
   if (err) throw err;
   console.log("Connected to The DB of BidsArt!");
-  app.listen(port, () => console.log(`Server running on port ${port}`));
+  server.listen(port, () => console.log(`Server running on port ${port}`));
 });
  
