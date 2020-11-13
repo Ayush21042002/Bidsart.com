@@ -15,12 +15,15 @@ exports.customerLogin = (req, resp, next) => {
         _Bcrypt.compare(req.body.password, result[0].password, (err,ans) => {
             passwordCorrect = ans;
             if(!passwordCorrect){
-                resp.status(401).send("Wrong Password");
+                resp.status(401).json({
+                    message: "Wrong Password"
+                });
             }
             else{
+                let userId = result[0].uid; 
                 con.query(
-                "SELECT * FROM customer where customerId = ?",
-                [result[0].userId],
+                "SELECT * FROM customer where cid = ?",
+                [userId],
                 (err, res) => {
                     if (err) throw err;
 
@@ -28,23 +31,25 @@ exports.customerLogin = (req, resp, next) => {
 
                     if (res.length > 0) {
                     const token = jwt.sign(
-                        { email: result[0].email, customerId: result[0].userId },
+                        { email: result[0].email, cid: userId },
                         "Thisistheverificatonsecretkeyforcustomers",
                         { expiresIn: "1h" }
                     );
                     resp.status(200).json({
                         token: token,
                         expirationTime: 3600,
-                        customerId: result[0].userId,
+                        cid: userId,
                         email: result[0].email,
                         CustomerName: {
                         fname: res[0].fname,
-                        mname: res[0].mname,
                         lname: res[0].lname,
-                        },
+                        message: "Successfully Logged in"
+                        }
                     });
                     } else {
-                    resp.status(401).send("No customer from these credentials");
+                        resp.status(404).json({
+                            message: "No customer from these credentials"
+                        });
                     }
                 }
                 );
@@ -52,7 +57,9 @@ exports.customerLogin = (req, resp, next) => {
         });
         
     }else{
-        resp.status(401).send("No email exists");
+        resp.status(404).json({
+            message: "No such email registered"
+        });
     }
     });
 }

@@ -15,32 +15,36 @@ exports.sellerLogin = (req, resp, next) => {
         _Bcrypt.compare(req.body.password, result[0].password, (err,ans) => {
             passwordCorrect = ans;
             if(!passwordCorrect){
-                resp.status(401).send("Wrong Password");
+                resp.status(401).json({
+                    message: "Wrong Password"
+                });
             }
             else{ 
                 con.query(
                 "SELECT * FROM seller where sid = ?",
-                [result[0].userId],
+                [result[0].uid],
                 (err, res) => {
                     if (err) throw err;
-
                     // console.log(res);
 
                     if (res.length > 0) {
                     const token = jwt.sign(
-                        { email: result[0].email, sid: result[0].userId },
+                        { email: result[0].email, sid: result[0].uid },
                         "Thisistheverificatonsecretkeyforsellers",
                         { expiresIn: "1h" }
                     );
                     resp.status(200).json({
                         token: token,
                         expirationTime: 3600,
-                        sid: result[0].userId,
+                        sid: result[0].uid,
                         email: result[0].email,
-                        companyName: res[0].company_name,
+                        artist_name: res[0].name,
+                        message: "Successfully Logged in"
                     });
                     } else {
-                    resp.status(401).send("No seller from these credentials");
+                        resp.status(404).json({
+                            message: "No seller from these credentials"
+                        });
                     }
                 }
                 );
@@ -48,7 +52,9 @@ exports.sellerLogin = (req, resp, next) => {
         });
         
     }else{
-        resp.status(401).send("No email exists");
+        resp.status(404).json({
+            message: "No email exists"
+        });
     }
     });
 }
