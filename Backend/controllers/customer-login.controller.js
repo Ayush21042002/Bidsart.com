@@ -43,8 +43,8 @@ exports.customerLogin = (req, resp, next) => {
                         CustomerName: {
                         fname: res[0].fname,
                         lname: res[0].lname,
+                        },
                         message: "Successfully Logged in"
-                        }
                     });
                     } else {
                         resp.status(404).json({
