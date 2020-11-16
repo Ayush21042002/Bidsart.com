@@ -2,12 +2,11 @@ const con = require("../database/db");
 
 exports.registerAuction = (req,res) => {
     const auction = {
-        productId : Number(req.body.productId),
-        startingPrice: Number(req.body.starting),
-        auctionday: req.body.day,
-        auctiontime: req.body.time,
-        status: "Scheduled",
-        quantity: Number(req.body.quantity)
+        pid : Number(req.body.pid),
+        minBid: Number(req.body.startingPrice),
+        startTime: req.body.start,
+        endTime: req.body.end,
+        status: "scheduled"
     };
 
     con.query("INSERT INTO auctions SET ?",auction, (err,result) => {

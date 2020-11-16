@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
         //here to get the token and make it avaible to all the further procedure, we added a field to 
         //the request object, whichever route using this middleware , will receive this userData, as request
         //is transferred to next() middleware.
-        req.customerData = { email: decodedToken.email, customerId: decodedToken.customerId };
+        req.customerData = { email: decodedToken.email, cid: decodedToken.cid };
         next();
     } catch (error) {
         res.status(401).json({
