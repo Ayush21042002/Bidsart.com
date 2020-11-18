@@ -1,3 +1,5 @@
+// Connection with the database
+
 const mysql = require('mysql');
 
 // Making a connection with the mysql server in my system

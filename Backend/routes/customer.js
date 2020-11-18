@@ -1,3 +1,5 @@
+// Here all the routes having http://localhost:3000/customer prefix will be handled
+
 const express = require('express');
 const customerAuth = require('../Middleware/verify-customer');
 const customerLogin = require('../controllers/customer-login.controller');
