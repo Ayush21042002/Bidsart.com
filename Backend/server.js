@@ -25,8 +25,9 @@ app.use("/images", express.static(path.resolve(__dirname, "images")));
 
 
 app.use('/seller', sellerRoutes);
-app.use('/', productRoutes);
 app.use('/customer', customerRoutes);
+app.use('/', productRoutes);
+
 
 
 const server = http.createServer(app);
