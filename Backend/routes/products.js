@@ -1,3 +1,5 @@
+// Here all the routes having http://localhost:3000/ prefix will be handled
+
 const express = require('express');
 const con = require('../database/db');
 const sellerAuth = require('../Middleware/verify-seller');

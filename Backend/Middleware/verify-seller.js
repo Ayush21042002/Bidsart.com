@@ -1,3 +1,5 @@
+// Middleware for seller authentication
+
 const jwt = require('jsonwebtoken');
 
 //this fucntion is a middleware that will execute for the paths that areconfigured for authentication.

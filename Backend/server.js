@@ -1,16 +1,16 @@
 // importing necessary modules
-const express = require('express');
-const path = require("path");
-const http = require("http");
-const socketio = require("socket.io");
+const express = require('express'); // importing express framework
+const path = require("path"); // importing path module for working with files and directiory paths
+const http = require("http"); // importing the http module for creating server
+const socketio = require("socket.io");  // importing socket.io module for Live-chat
 
-const cors = require("cors");
+const cors = require("cors"); // importing cors for cross origin resource sharing
 
 // Calls the express function "express()" and puts new Express application inside the app variable
 const app = express(); 
-const con = require('./database/db');
+const con = require('./database/db'); //importing database connection 
 
-app.use(cors());
+app.use(cors());  // middleware setting up app for cross origin sharing
 // Setting the middleware for json objects
 // parse incoming Request Object as a JSON Object
 app.use(express.json());
@@ -20,7 +20,7 @@ const customerRoutes = require('./routes/customer');
 const sellerRoutes = require("./routes/seller");
 const productRoutes = require("./routes/products");
 
-
+// middleware for serving static images stored in images folder
 app.use("/images", express.static(path.resolve(__dirname, "images")));
 
 
@@ -29,11 +29,10 @@ app.use('/customer', customerRoutes);
 app.use('/', productRoutes);
 
 
-
+// creating http server
 const server = http.createServer(app);
 
-// Chatting while auction
-
+// importing chat configuration 
 require("./chat")(server);
 
 // whatever is in the environment variable PORT, or 3000 if there's nothing there.

@@ -1,3 +1,5 @@
+// Here all the routes having http://localhost:3000/seller prefix will be handled
+
 const express = require('express');
 const sellerAuth = require('../Middleware/verify-seller');
 const sellerSignup = require("../controllers/seller-signup.controller");
