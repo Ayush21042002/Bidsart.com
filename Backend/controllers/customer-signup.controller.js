@@ -38,46 +38,27 @@ exports.createCustomer = (req, resp) => {
             });
           }else{
 
-            if(!req.body.fname || req.body.fname == ""){
-              resp.status(400).json({
-                message: "Provided first name is not appropriate"
-              });
-            }
-            else if(!req.body.contact || req.body.contact == ""){
-              resp.status(400).json({
-                message: "Provided contact is not appropriate"
-              });
-            }
-            else if(!req.body.countrycode || req.body.countrycode == ""){
-              resp.status(400).json({
-                message: "Provided country code is not appropriate"
-              });
-            }
-            else if(!req.body.addressLine || req.body.addressLine == ""){
-              resp.status(400).json({
-                message: "Provided Address Line is not appropriate"
-              });
-            }
-            else if(!req.body.city || req.body.city == ""){
-              resp.status(400).json({
-                message: "Provided city is not appropriate"
-              });
-            }
-            else if(!req.body.state || req.body.state == ""){
-              resp.status(400).json({
-                message: "Provided state is not appropriate"
-              });
-            }
-            else if(!req.body.country || req.body.country == ""){
-              resp.status(400).json({
-                message: "Provided country is not appropriate"
-              });
-            }
-            else if(!req.body.zip || req.body.zip == ""){
-              resp.status(400).json({
-                message: "Provided Zip code is not appropriate"
-              });
-            }else{
+            const checkField = {             // This js object contains all the fields which have the constraint not null
+              fname: req.body.fname,
+              contact: req.body.contact,
+              coCode: req.body.countrycode,
+              addLine: req.body.addressLine,
+              city: req.body.city,
+              state: req.body.state,
+              country: req.body.country,
+              zip: req.body.zip
+              
+          };    
+      
+           var check = true; 
+           for (var key in checkField) {
+                  if (checkField[key] == null || checkField[key] == "")
+                      check = false; 
+           }
+           if(!check){
+             resp.status(400).json({message:"Details  provided are not sufficient"});
+           }
+            else{
               const customer = {
               cid: userId,
               fname: req.body.fname,
@@ -111,47 +92,27 @@ exports.createCustomer = (req, resp) => {
           if(err) throw err;
 
           const userId = insertResult.insertId;
-
-            if(!req.body.fname || req.body.fname == ""){
-              resp.status(400).json({
-                message: "Provided first name is not appropriate"
-              });
-            }
-            else if(!req.body.contact || req.body.contact == ""){
-              resp.status(400).json({
-                message: "Provided contact is not appropriate"
-              });
-            }
-            else if(!req.body.countrycode || req.body.countrycode == ""){
-              resp.status(400).json({
-                message: "Provided country code is not appropriate"
-              });
-            }
-            else if(!req.body.addressLine || req.body.addressLine == ""){
-              resp.status(400).json({
-                message: "Provided Address Line is not appropriate"
-              });
-            }
-            else if(!req.body.city || req.body.city == ""){
-              resp.status(400).json({
-                message: "Provided city is not appropriate"
-              });
-            }
-            else if(!req.body.state || req.body.state == ""){
-              resp.status(400).json({
-                message: "Provided state is not appropriate"
-              });
-            }
-            else if(!req.body.country || req.body.country == ""){
-              resp.status(400).json({
-                message: "Provided country is not appropriate"
-              });
-            }
-            else if(!req.body.zip || req.body.zip == ""){
-              resp.status(400).json({
-                message: "Provided Zip code is not appropriate"
-              });
-            }else{
+          const checkField = {             // This js object contains all the fields which have the constraint not null
+            fname: req.body.fname,
+            contact: req.body.contact,
+            coCode: req.body.countrycode,
+            addLine: req.body.addressLine,
+            city: req.body.city,
+            state: req.body.state,
+            country: req.body.country,
+            zip: req.body.zip
+            
+        };    
+    
+         var check = true; 
+         for (var key in checkField) {
+                if (checkField[key] == null || checkField[key] == "")
+                    check = false; 
+         }
+         if(!check){
+           resp.status(400)({message:"Details  provided are not sufficient"});
+         }
+         else{
               const customer = {
               cid: userId,
               fname: req.body.fname,

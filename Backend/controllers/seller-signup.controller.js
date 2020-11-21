@@ -27,7 +27,8 @@ exports.createSeller = (req, resp) => {
         if(err) throw err;
 
         if(userResult.length > 0){
-            const userId = userResult[0].userId;
+            console.log(userResult);
+            const userId = userResult[0].uid;
 
             con.query("SELECT * FROM seller where sid = ?",[userId], (err,sellerSearch) => {
                 if(err) throw err;
@@ -36,35 +37,27 @@ exports.createSeller = (req, resp) => {
                     resp.json({
                         message: "Seller already registered"
                     });
-                }else if(!req.body.artist_name || req.body.artist_name == ""){
-                    resp.status(400).json({
-                        message: "Provided artist name is not appropriate"
-                    });
-                }else if(!req.body.addressLine || req.body.addressLine == ""){
-                    resp.status(400).json({
-                        message: "Provided address is not appropriate"
-                    });
-                }else if(!req.body.city || req.body.city == ""){
-                    resp.status(400).json({
-                        message: "Provided city is not appropriate"
-                    });
-                }else if(!req.body.state || req.body.state == ""){
-                    resp.status(400).json({
-                        message: "Provided state is not appropriate"
-                    });
-                }else if(!req.body.pan_num || req.body.pan_num == ""){
-                    resp.status(400).json({
-                        message: "Provided Pan Number is not appropriate"
-                    });
-                }else if(!req.body.zip || req.body.zip == ""){
-                    resp.status(400).json({
-                        message: "Provided zip is not appropriate"
-                    });
-                }else if(!req.body.contact1 || req.body.contact1 == ""){
-                    resp.status(400).json({
-                        message: "Provided First Contact is not appropriate"
-                    });
-                }
+                }else 
+                 {
+                    const checkfield = {
+                        name: req.body.artist_name,
+                        addrLine: req.body.addressLine,
+                        city: req.body.city,
+                        state: req.body.state,
+                        zip: req.body.zip,
+                        contact1: req.body.contact1,
+                        panNo: req.body.pan_num
+                    } 
+                
+                    var check = true; 
+                    for(var key in checkfield){
+                        if(checkfield[key] == "" || checkfield[key]==null)
+                            check = false;
+                    }
+                    if(!check){
+                        res.status(400).json({
+                            message:"Wrong details "})
+                    }
                 else{
                     const seller = {
                         sid: userId,
@@ -89,6 +82,7 @@ exports.createSeller = (req, resp) => {
                         });
                     });
                 }
+            }
             });
         }else{
             con.query("INSERT INTO user SET ? ",user,(err,insertResult) => {
@@ -96,34 +90,24 @@ exports.createSeller = (req, resp) => {
 
                 const userId= insertResult.insertId; //use of auto_increment in sid
                 
-                if(!req.body.artist_name || req.body.artist_name == ""){
-                    resp.status(400).json({
-                        message: "Provided artist name is not appropriate"
-                    });
-                }else if(!req.body.addressLine || req.body.addressLine == ""){
-                    resp.status(400).json({
-                        message: "Provided address is not appropriate"
-                    });
-                }else if(!req.body.city || req.body.city == ""){
-                    resp.status(400).json({
-                        message: "Provided city is not appropriate"
-                    });
-                }else if(!req.body.state || req.body.state == ""){
-                    resp.status(400).json({
-                        message: "Provided state is not appropriate"
-                    });
-                }else if(!req.body.pan_num || req.body.pan_num == ""){
-                    resp.status(400).json({
-                        message: "Provided Pan Number is not appropriate"
-                    });
-                }else if(!req.body.zip || req.body.zip == ""){
-                    resp.status(400).json({
-                        message: "Provided zip is not appropriate"
-                    });
-                }else if(!req.body.contact1 || req.body.contact1 == ""){
-                    resp.status(400).json({
-                        message: "Provided First Contact is not appropriate"
-                    });
+                const checkfield = {
+                    name: req.body.artist_name,
+                    addrLine: req.body.addressLine,
+                    city: req.body.city,
+                    state: req.body.state,
+                    zip: req.body.zip,
+                    contact1: req.body.contact1,
+                    panNo: req.body.pan_num
+                } 
+            
+                var check = true; 
+                for(var key in checkfield){
+                    if(checkfield[key] == "" || checkfield[key]==null)
+                        check = false;
+                }
+                if(!check){
+                    res.status(400).json({
+                        message:"Wrong details "})
                 }
                 else{
                     const seller = {
