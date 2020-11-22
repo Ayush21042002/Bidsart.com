@@ -25,8 +25,6 @@ Router.get("/allAuctions",fetchAuctions.getAllAuctions);
 
 Router.get('/:id', fetchProducts.getProductByProductId);
 
-Router.get("/sellerProducts/:sellerId",fetchProducts.getAllProductsBySeller);
-
 Router.get("/getAuctionsByProduct/:productId",fetchAuctions.getAuctionByProductId);
 
 

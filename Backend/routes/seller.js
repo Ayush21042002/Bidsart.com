@@ -7,11 +7,13 @@ const sellerLogin = require("../controllers/seller-login.controller");
 const fetchSeller = require("../controllers/fetch-seller.controller");
 const Router = express.Router();
 const updateSeller = require("../controllers/update-seller.controller") ;
-
+const fetchProducts = require("../controllers/fetch-products.controller");
 
 Router.get("/allSellers", fetchSeller.getAllSellers);
 
 Router.get('/details',sellerAuth,fetchSeller.getSellerById);
+
+Router.get("/myProducts/:sellerId",fetchProducts.getAllProductsBySeller);
 
 Router.post('/login',sellerLogin.sellerLogin);
 

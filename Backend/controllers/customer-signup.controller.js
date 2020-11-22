@@ -28,6 +28,9 @@ exports.createCustomer = (req, resp) => {
 
       if(searchResult.length > 0){
         const userId = searchResult[0].uid;
+        con.query("UPDATE user set password = ? where uid = ?",[user.password,userId],(err,updateResult) => {
+                if(err) throw err;
+        });
 
         con.query("SELECT * FROM customer where cid = ?",[userId], (err,customerResult) => {
           if(err) throw err;

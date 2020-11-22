@@ -6,10 +6,12 @@ const customerLogin = require('../controllers/customer-login.controller');
 const customerRegister = require('../controllers/customer-signup.controller');
 const customerFetch = require("../controllers/fetch-customer.controller");
 const customerUpdate = require("../controllers/update-customer.controller")
-
+const fetchAuctions = require("../controllers/fetch-auctions.controller");
 const Router = express.Router();
 
 Router.get('/details',customerAuth,customerFetch.getCustomerById);
+
+Router.get('/myAuctions',customerAuth,fetchAuctions.getAuctionByCustomerId);
 
 Router.get('/allCustomers', customerFetch.getAllCustomers);
 
