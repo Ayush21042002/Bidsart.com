@@ -15,7 +15,7 @@ exports.getSellerById = (req,res) => {
   const sid = req.sellerData.sid;
   
   con.query(
-    "select sid, building_no,add1,add2, state , country,zip ,landmark ,pan_num ,aadhar_num from seller where sid = ?",
+    "SELECT * FROM seller WHERE sid = ?",
     [sid], (err,result) => {
         if(err) throw err;
 

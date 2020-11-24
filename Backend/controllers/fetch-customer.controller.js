@@ -16,7 +16,7 @@ exports.getCustomerById = (req,res) => {
     const customerId = req.customerData.cid;
     // console.log(customerId);
     con.query(
-      "select c.*,o.contact,o.countrycode,a.houseNo,a.addressLine,a.city,a.state,a.country,a.landmark from customer c,contact o,cust_address a where c.customerId = ?",
+      "SELECT * FROM customer WHERE cid = ?",
       [customerId], (err,result) => {
           if(err) throw err;
 

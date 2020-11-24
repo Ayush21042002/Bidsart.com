@@ -2,6 +2,7 @@ const con = require("../database/db");
 
 exports.updateCustomer = (req , res)  => {
     const cid = req.customerData.cid ; 
+    
     const checkField = {             // This js object contains all the fields which have the constraint not null
         fname: req.body.fname,
         contact: req.body.contact,
