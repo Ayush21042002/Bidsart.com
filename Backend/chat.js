@@ -10,6 +10,7 @@ const {
 
 const formatMessage = require('./utils/messages');
 const con = require("./database/db");
+const { use } = require("./routes/seller");
 
 module.exports = (server) => {
     const io = socketio(server);
@@ -18,58 +19,97 @@ module.exports = (server) => {
 
     io.on('connection', (socket) => {
         
-        socket.on('joinRoom', async({customerId,username,room}) => {
-            const user = await userJoin(socket.id,customerId,username,room);
-            console.log(user,"after execution");
-            const winningUser = await getWinningUser(room);
-            console.log(winningUser);
+        socket.on('joinRoom', ({cid,username,aid}) => {
+            console.log("USER WITH "+ cid + " " + username + " JOINING " + aid," 22");
+            userJoin(socket.id,cid,username,aid)
+            .then(user => {
+                console.log(user," JOINED 25");
+                getWinningUser(aid)
+                .then(winningUser => {
+                    console.log("CURRENT WINNER ",winningUser," 28");
+                    console.log(user.aid," 29");
+                    socket.join(user.aid);
 
-            socket.join(user.room);
+                    socket.emit('message', formatMessage(auctionHead, 'WELCOME TO AUCTION', winningUser));
 
-            socket.emit('message', formatMessage(auctionHead, 'WELCOME TO AUCTION', winningUser));
+                    // BRODCAST WHEN USER CONNECTS
+                    socket.broadcast.to(user.aid).emit('message', formatMessage(auctionHead, `${user.username} has joined the auction`,winningUser));
 
-            // BRODCAST WHEN USER CONNECTS
-            socket.broadcast.to(user.room).emit('message', formatMessage(auctionHead, `${user.username} has joined the auction`,winningUser));
+                    // Send users in room
 
-            // Send users in room
-
-            const userInRoom = await getRoomUsers(user.room);
-            console.log(userInRoom);
-
-            io.to(user.room).emit('roomUsers', {
-                room: user.room,
-                users: userInRoom,
-                winningUser,
+                    getRoomUsers(user.aid)
+                    .then(userInRoom => {
+                        console.log("USERS IN ROOM ",userInRoom," 41");
+                        // console.log(room)
+                        io.to(user.aid).emit('roomUsers', {
+                            aid: user.aid,
+                            users: userInRoom,
+                            winningUser
+                        });
+                    }).catch(err => {
+                        console.log(err," 49");
+                    });
+                }).catch(err => {
+                    console.log(err," 52");
+                });
+            }).catch(err => {
+                console.log(err," 55");
             });
         });
 
-        socket.on('chatMessage', async(msg) => {
-            const user = await getCurrentUser(socket.id);
-            updateBid(socket.id, msg)
-            .then(data => {
-                console.log(data);
-            }).catch(err => {
-                console.log(err);
-            });
-            const winningUser = await getWinningUser(user.room);
+        socket.on('chatMessage', (message) => {
+            getCurrentUser(socket.id)
+            .then(user => {
+                console.log(user," in ",user.aid," sent ",message," 62");
 
-            io.to(user.room).emit('message', formatMessage(user.username,msg,winningUser));
+                updateBid(socket.id, message,user.aid)
+                .then(data => {
+                    getWinningUser(user.aid)
+                    .then(winningUser => {
+                            console.log("WINNER AFTER MESSAGE ",winningUser," 68");
+                            io.to(user.aid).emit('message', formatMessage(user.username,message,winningUser));
+                        }).catch(err => {
+                            console.log(err," 71");
+                        });
+                    }).catch(err => {
+                        console.log(err," 74");
+                    });
+                }).catch(err => {
+                    console.log(err," 77");
+                });
         });
 
         socket.on('disconnect', async() => {
-            const user = await userLeave(socket.id);
+            getCurrentUser(socket.id)
+            .then(user => {
+                console.log("USER BEING DELETED ",user," 84");
+                userLeave(socket.id)
+                .then(userDeleted => {
+                    console.log(user," USER LEFT"," 87");
 
-            if(user) {
-                const winningUser = await getWinningUser(user.room);
-
-                io.to(user.room).emit('message', formatMessage(auctionHead, `${user.username} has left the auction`,winningUser));
-                
-                io.to(user.room).emit('roomUsers', {
-                    room: user.room,
-                    users: await getRoomUsers(user.room),
-                    winningUser,
+                    getWinningUser(user.aid)
+                    .then(winningUser => {
+                        io.to(user.aid).emit('message', formatMessage(auctionHead, `${user.username} has left the auction`,winningUser));
+                        
+                        getRoomUsers(user.aid)
+                        .then(userInRoom => {
+                            io.to(user.aid).emit('roomUsers', {
+                                room: user.aid,
+                                users: userInRoom,
+                                winningUser,
+                            });
+                        }).catch(err => {
+                            console.log(err," 101");
+                        });
+                    }).catch(err => {
+                        console.log(err," 104");
+                    });
+                }).catch(err => {
+                    console.log(err," 107");
                 });
-            }
+            }).catch(err => {
+                console.log(err," 111");
+            });          
         });
     });
 
