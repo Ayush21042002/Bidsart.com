@@ -1,0 +1,91 @@
+#auction{
+    margin-left: 30px;
+}
+
+.girdmain {
+    margin-top: 10px;
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: 70% auto;
+    
+}
+
+.gridcon {
+    /* background-color: blueviolet; */
+    
+    margin-left: 10px;
+    margin-top: 10px;
+
+}
+.con{
+    height: 350px;
+    background-color: ghostwhite;
+    border: solid black 2px;
+    margin: 0px;
+    margin-bottom: 30px;
+}
+.heading-box{
+    background-color: rgb(147, 170, 248);
+    width: 100%;
+}
+#heading{
+    padding-left: 10px;
+}
+#divideline{
+    border: none black 2px;
+    border-bottom-style:solid ;
+}
+.bidimage{
+    height: 250px;
+    width: 850px;
+    border-style: none;
+    border-bottom-style: solid;
+    border-color: black;
+    border-width: 2px;
+}
+.bidbttn{
+    background-color: black;
+    color: white;
+    width: 150px;
+    height: 40px;
+    margin-left: 80%;
+    position: relative;
+    top: -30px;
+    border-style: none;
+}
+.imagebttn{
+    border-style:none;
+    padding: 0px;
+    width: 100.05%;
+    margin: 0;
+    outline: 0px;
+    background-color: transparent;
+
+}
+
+.center{
+    position: absolute;   
+    top: 50%;
+    padding-left: 250px;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+  
+  #clock{
+    display: flex;
+    height: 25px;
+    margin: 0 auto;
+    background-color:black ;
+    opacity: 0.7;
+    color: cornsilk;
+  }
+  #clock div{
+    position: relative;
+    width: 50px;
+    margin: 0 2px;
+    
+  }
+  #anotherone{
+      background-color: cyan;
+  }
+  

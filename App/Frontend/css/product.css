@@ -1,0 +1,111 @@
+body {
+    background-color: mintcream;
+    overflow-x: hidden;
+}
+.gridcontainor {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 45% auto;
+}
+#details{
+    padding: 40px;
+    padding-left: 10px;
+    border: none solid 1.5px;
+    border-left-style: solid;
+    font-size: 15px;
+}
+.griditems {
+    /* background-color: greenyellow; */
+    height: 400px;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+.content{
+    margin: 30px;
+    margin-top: 50px;
+    height: 320px;
+    background-color: rgb(190, 173, 230);
+    padding: 50px;
+    
+}
+.wrapp{
+    padding-top: 40px;
+}
+
+div.carousel-inner {
+    height: 300px !important;
+}  
+
+
+#description{
+    margin-bottom: 20px;
+}
+#devideline{
+    margin: 20px;
+    margin-top: 60px;
+    border: none rgb(119, 108, 89) 1.5px; 
+    border-bottom-style: solid;
+
+}
+
+.images {
+    width: 100%;
+    height: 100%;
+}
+
+#heading{
+    width: fit-content;
+    margin: auto;
+    border:none black 1.5px;
+    border-bottom-style: solid;
+}
+
+/*  <div class="registerproduct col-sm-6">
+        <button class="bidbtn">
+            <img class="bidimage" src="http://localhost:3000/images/h-a-n-d-1-.-j-p-g-1605269151836.jpg">
+        </button><div class="auctionparabttn">
+        <div class="paradetails">
+            <h4 class="auctiondate">2020-11-14</h4>
+            <h4 class="auctiontime">06:30:00</h4>
+            <p>120 Rupees</p>
+        </div>
+        <div class="registerbtn">
+            <button class="registerforbid">Register Now</button>
+        </div>
+    </div> */
+
+.row{
+    padding: 10px;
+}
+
+.registerproduct{
+    padding: 30px;
+}
+
+.bidbtn {
+    width: 100%;
+}
+
+
+.bidbtn,.paradetails,.registerbtn {
+    background-color: #221122;
+    border: solid 3px black;
+    color: white;
+    text-align: end;
+}
+
+.bidimage {
+    width: 100%;
+    height: 200px;
+}
+
+.registerbtn {
+    padding: 10px;
+}
+
+.registerforbid {
+    background-color: grey;
+    padding: 10px;
+    color: white;
+    border: solid white 3px;
+}

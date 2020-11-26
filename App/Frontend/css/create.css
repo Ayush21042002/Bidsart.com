@@ -1,0 +1,63 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+    /* font-family:  'Arial Narrow', Arial, sans-serif; */
+  }
+.form{
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+    background-color:white;
+    width: fit-content;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 2em;
+    transition: 2s;
+    position: relative;
+    scroll-behavior: smooth;
+    top:35%;
+    left: 3%;
+    border-radius: 0.3em;
+}
+.button {
+    background-color: #f0a500; 
+    border: none;
+    outline: none ;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 40px;
+    margin-top: 2em;
+    transition: 1s all;
+    box-shadow: 0 0 5px#3f3f44;
+    
+  }
+  .desc,.choosefile,.category-div{
+    margin-top: 1em;
+}
+label{
+    font-weight: bolder;
+    opacity:65% ;
+    margin-top: 1em;
+    
+  }
+  input{
+    width: 400px;
+    height: 26px;
+    transition: 2s;
+    /* border: 1px solid #555; */
+    outline: none;
+      margin-top: auto;
+      /* border-color: #9ecaed;
+      box-shadow: 0 0 2px #9ecaed; */
+  }
+  h1{
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:#f0a500 ;
+    box-shadow: 0 1px 0px#3f3f44;
+   }

@@ -1,0 +1,172 @@
+/* PROFILE CSS */
+
+.form-div{
+    background-image: url("../images/wallhaven-6k98vq.jpg");
+    padding: 10px;
+}
+
+ form{
+    margin: auto;
+   margin-top: 5em;
+   margin-bottom: 5em;
+   background-color:white;
+   scroll-behavior: smooth;
+   box-shadow: 0 0 5px rgb(0, 0, 0);
+   width: max-content;
+   padding: 1em;
+   border-radius: 5px;
+   padding: 2.5em;
+} 
+.fandlname,.csc,.zipland,.codecontact,.accountinfo{
+    display: flex;
+}
+.fname,.city,.zipcode,.countrycode,.bankname{
+    flex: 1;
+}
+.lname,.state,.landmark,.contact,.accNo{
+    flex:2;
+}
+.country,.altcontact,.panNo{
+    flex: 3;
+}
+.email input,.address input{
+    width: 900px;
+    margin: auto;
+    margin-left: auto;
+}
+label,input{
+    margin-left: auto;
+}
+.fandlname input{
+    width: 400px;
+}
+.csc input,.codecontact input{
+    width: 257px;
+}
+.zipcode input{
+    width: 257px;
+
+}
+
+.lname,.contact,.altcontact,.accNo,.panNo{
+    margin-left: 6em;
+}
+.landmark{
+    margin-left: 2em;
+}
+.landmark input{
+    width: 575px;
+}
+
+
+
+form h1{
+    text-align: center;
+    color: #f0a500;
+    box-shadow: 0px 2px 0px rgb(110, 110, 110);
+}
+form h3{
+    margin-top: 1em;
+    color: #f0a500;
+}
+
+.fname,.lname,.csc,.zipland,.codecontact{
+    margin-top: 1em;
+
+}
+.state,.country,.altcontact,.contact{
+    margin-left: 4em;
+}
+input{
+    border-radius: 1px;
+    border-color: #f0a500;
+   height: 35px;
+    outline: none;
+
+}
+
+  .artistname{
+      margin-top: 1em;
+      visibility: hidden;
+  }
+  .artistname input{
+      width: 350px;
+  }
+
+  .accountinfo{
+      margin-top: 1em;
+      visibility: hidden;
+  }
+  
+  .accountinfo input{
+    width: 257px;
+  }
+  .accNo,.panNo{
+      margin-left: 4em;
+  }
+  
+  .fname,.lname,.countrycode,.contact,.altcontact{
+      margin-top: -4em;
+  }
+  .image img{
+      width:100%;
+      
+  }
+
+.buttons {
+    margin-top: 3rem;
+    padding: 20px;
+    display: flex; 
+    justify-content: space-between;
+}
+
+.savechanges{
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    width: 150px;
+    text-align: center;
+    /* margin-left: 375px; */
+    background-color:#f0a500;
+    outline: none;
+    border: none;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 5px#3f3f44;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: bold;
+}
+.cancel{
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    width: 150px;
+    text-align: center;
+    /* margin-left: 375px; */
+    background-color:#f0a500;
+    outline: none;
+    border: none;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 5px#3f3f44;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: bold;
+}
+.edit{
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    text-align: center;
+    /* margin-left: 375px; */
+    background-color:#f0a500;
+    outline: none;
+    border: none;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 5px#3f3f44;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: bold;
+}
