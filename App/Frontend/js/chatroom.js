@@ -1,26 +1,45 @@
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 const winningUser = document.getElementById('winning-user');
+const winningAmount = document.getElementById("winning-bid");
 const chatMessage = document.querySelector(".chat-messages");
 const socket = io();
+const myBid = document.getElementById("msg");
+const increaseBtn = document.getElementById("increase");
+var incrementValue = 50;
+let winningUserGlobal;
+let aidGlobal;
+let count = 1;
+
+document.onload = loadProduct();
 
 // TIMER
 
-var timeleft = 60;
-var downloadTimer = setInterval(function(){
-  if(timeleft <= 0){
-    clearInterval(downloadTimer);
-  }
+// var timeleft = 10;
+// var downloadTimer = setInterval(function(){
+//   if(timeleft <= 0){
+//     clearInterval(downloadTimer);
+
+//     invokeAuctionEnd();
+//   }
+//   document.getElementById("demo").innerHTML = timeleft;
+//   timeleft -= 1;
+// }, 1000);
+
+socket.on('counter', ({timeleft}) => {
   document.getElementById("demo").innerHTML = timeleft;
-  timeleft -= 1;
-}, 1000);
+
+  if(timeleft <= 0){
+      invokeAuctionEnd();
+  }
+});
 
 // SOCKET 
 
 //Get Username and room from localstorage
 const username = localStorage.getItem("fname") + " " + localStorage.getItem("lname");
 
-const aid = localStorage.getItem("aid");
+const aid = window.location.href.split("=")[1];
 
 const cid = localStorage.getItem("cid");
 
@@ -30,7 +49,7 @@ socket.emit('joinRoom', { cid,username, aid });
 // Get room users
 
 socket.on('roomUsers', ({ aid , users, winningUser }) => {
-    console.log(aid);
+    // console.log(aid);
     outputRoomName(aid);
     if(winningUser)
     {
@@ -41,7 +60,8 @@ socket.on('roomUsers', ({ aid , users, winningUser }) => {
 
 // Message from server
 socket.on('message', message => {
-    console.log(message);
+    // console.log(message);
+    count = 1;
 
     if(message.winningUser)
         outputWinningUser(message.winningUser);
@@ -59,6 +79,7 @@ document.getElementById("leave-room").onclick = (event) => {
 
 function outputRoomName(room) {
     roomName.innerHTML = room;
+    aidGlobal = room;
 }
 
 function outputUsers(users) {
@@ -69,6 +90,11 @@ function outputUsers(users) {
 
 function outputWinningUser(user) {
     winningUser.innerHTML = `${ user.username }`;
+    winningAmount.innerHTML = user.currBid;
+
+    checkCurrentBid(user.currBid);
+
+    saveWinningUser(user);
 }
 
 function outputMessage(message) {
@@ -88,7 +114,7 @@ document.getElementById("send").onclick = event => {
 
     let message = document.getElementById("msg").value;
     
-    timeleft = 60;
+    timeleft = 10;
 
     // Emit message
 
@@ -101,3 +127,89 @@ document.getElementById("send").onclick = event => {
     document.getElementById("msg").focus();
 }
 
+
+function saveWinningUser(user) {
+    winningUserGlobal = user;
+}
+
+async function invokeAuctionEnd() {
+    const cid = localStorage.getItem("cid");
+    const token = localStorage.getItem("token");
+    if(winningUserGlobal.cid == cid && token){
+
+        if(aidGlobal){
+            const reponse = await fetch("/customer/order", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({
+                    aid: aidGlobal
+                })
+            });
+            
+            let json = await reponse.json();
+
+            alert(json.message);
+            window.location.href = "auction.html";
+        }
+    }else{
+        window.location.href = "../index.html";
+    }
+}
+
+async function loadProduct(){
+
+    aidGlobal = window.location.href.split("=")[1];
+
+    if(aidGlobal){
+        const response = await fetch("/product/getProductByAuctionId/" + aidGlobal, {
+            method: "GET"
+        });
+
+        const json = await response.json();
+
+        console.log(json);
+
+        document.getElementById("title").innerHTML = json.title;
+        document.getElementById("description").innerHTML = json.description;
+        document.getElementById("category").innerHTML = json.category;
+        document.getElementById("sname").innerHTML = json.artist_name;
+
+        document.getElementById("product-image").src = json.images[0].imageURI;
+    }
+}
+
+
+function checkCurrentBid(bid){
+
+    if(bid < 1000){
+        incrementValue = 50;
+    }else if(bid >= 1000 && bid < 5000){
+        incrementValue = 100;
+    }else if(bid >= 5000 && bid < 9999){
+        incrementValue = 200;
+    }else if(bid >=10000 && bid < 49999){
+        incrementValue = 500;
+    }else if(bid >= 50000 && bid < 100000){
+        incrementValue = 1000;
+    }else{
+        incrementValue = 2000;
+    }
+
+    myBid.value = bid + incrementValue;
+
+}
+
+increaseBtn.onclick = (event) => {
+    event.preventDefault();
+
+    count++;
+
+    const myBidValue = myBid.value;
+
+    if(count <= 4){
+        myBid.value = Number(myBidValue) + incrementValue;
+    }
+}

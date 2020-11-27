@@ -17,13 +17,42 @@ module.exports = (server) => {
 
     const auctionHead = "Auction Head";
 
+    /*
+        var timeleft = 10;
+        var downloadTimer = setInterval(function(){
+        if(timeleft <= 0){
+            clearInterval(downloadTimer);
+
+            invokeAuctionEnd();
+        }
+        document.getElementById("demo").innerHTML = timeleft;
+        timeleft -= 1;
+        }, 1000);
+
+    */
+    var timeleftArray = {};
     io.on('connection', (socket) => {
         
         socket.on('joinRoom', ({cid,username,aid}) => {
+
+            timeleftArray[aid] = 60;
+
+            var downloadTimer = setInterval(function(){
+                if(timeleftArray[aid] <= 0){
+                    clearInterval(downloadTimer);
+                }
+                console.log(timeleftArray[aid]);
+                io.to(aid).emit('counter', {
+                    timeleft: timeleftArray[aid]
+                });
+                timeleftArray[aid] -= 1;
+            }, 1000);
+
             console.log("USER WITH "+ cid + " " + username + " JOINING " + aid," 22");
             userJoin(socket.id,cid,username,aid)
             .then(user => {
                 console.log(user," JOINED 25");
+                timeleftArray[aid] = 60;
                 getWinningUser(aid)
                 .then(winningUser => {
                     console.log("CURRENT WINNER ",winningUser," 28");
@@ -64,6 +93,10 @@ module.exports = (server) => {
 
                 updateBid(socket.id, message,user.aid)
                 .then(data => {
+                    timeleftArray[user.aid] = 30;
+                    io.to(user.aid).emit('counter', {
+                        timeleft: timeleftArray[user.aid]
+                    });
                     getWinningUser(user.aid)
                     .then(winningUser => {
                             console.log("WINNER AFTER MESSAGE ",winningUser," 68");

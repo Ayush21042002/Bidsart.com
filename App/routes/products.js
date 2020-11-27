@@ -27,6 +27,8 @@ Router.get('/:id', fetchProducts.getProductByProductId);
 
 Router.get("/getAuctionsByProduct/:productId",fetchAuctions.getAuctionByProductId);
 
+Router.get("/getProductByAuctionId/:aid",fetchProducts.getProductByAuctionId);
+
 
 // Post requests
 Router.post('/addProduct', sellerAuth,extractFile,addProduct.addProduct);

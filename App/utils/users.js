@@ -16,14 +16,24 @@ function userJoin(id,cid,username, aid) {
     // console.log(user);
 
     return new Promise((resolve,reject) => {
-            con.query("SELECT * FROM auct_log WHERE aid = ? AND cid = ?", [aid,cid], (err,result) => {
+            con.query("SELECT * FROM auct_log WHERE aid = ? AND cid = ?", [aid,cid], (err,searchResult) => {
                 if(err) reject(err);
 
-                con.query("INSERT INTO auct_log SET ?;",user, (err,result) => {
-                    if(err) reject(err);
+                if(searchResult.length > 0){
+                    con.query("UPDATE auct_log set id = ? where aid = ? AND cid = ?;",[user.id,aid,cid], (err,updatedRes) => {
+                        if(err) reject(err);
 
-                    resolve(user);
-                });
+                        user.joinTime = searchResult[0].joinTime;
+
+                        resolve(user);
+                    });
+                }else{
+                    con.query("INSERT INTO auct_log SET ?;",user, (err,insertResult) => {
+                        if(err) reject(err);
+
+                        resolve(user);
+                    });
+                }
             });
     });
 }
@@ -49,7 +59,7 @@ function getCurrentUser(id) {
 
 function userLeave(id) {
     return new Promise((resolve,reject) => {
-        con.query("DELETE FROM auct_log where id = ?",[id], (err,resdel) => {
+        con.query("DELETE FROM auct_log where id = ? AND isWinner = 0;",[id], (err,resdel) => {
             if(err){
                 reject(err);
                 throw(err);
@@ -91,8 +101,8 @@ function updateBid(id, Bid,aid) {
 
                     console.log(maxBid," curr max bid");
 
-                    con.query("UPDATE auct_log set isWinner = 1 where id = ?",
-                    [maxBid[0].id], 
+                    con.query("UPDATE auct_log set isWinner = 1 where id = ?; UPDATE auct_log set isWinner = 0 where id <> ? AND aid = ?;",
+                    [maxBid[0].id,maxBid[0].id,aid], 
                     (err,updateResult) => {
                         if(err) reject(err);
 
@@ -119,6 +129,8 @@ function getWinningUser(aid) {
                     // console.log(auctionResult);
 
                     resolve({
+                        cid: 0,
+                        aid: aid,
                         username: "AUCTION HEAD",
                         currBid: auctionResult[0].minBid
                     });

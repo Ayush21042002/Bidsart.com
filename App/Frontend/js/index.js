@@ -8,7 +8,7 @@ var page=URL.split("/")[1];
 // <a class="dropdown-item" href="#">Something else here</a>
 // </div> -->
 var SID=localStorage.getItem('sid');
-console.log(SID);
+// console.log(SID);
 var bigDiv=document.getElementById("dashboard-li");
 if(page==="index.html"){
 if(SID){
@@ -46,6 +46,11 @@ else{
       newA1.innerHTML="My details";
       newA1.href="html/profile.html?type=customer"
       newDiv.appendChild(newA1);
+      let newA3 = document.createElement("a");
+      newA3.classList = "dropdown-item";
+      newA3.innerHTML = "My Orders";
+      newA3.href = "html/myOrders.html";
+      newDiv.appendChild(newA3);
       bigDiv.appendChild(newDiv);
 }
 }
@@ -85,6 +90,11 @@ else{
       newA1.innerHTML="My details";
       newA1.href="../html/profile.html?type=customer"
       newDiv.appendChild(newA1);
+      let newA3 = document.createElement("a");
+      newA3.classList = "dropdown-item";
+      newA3.innerHTML = "My Orders";
+      newA3.href = "../html/myOrders.html";
+      newDiv.appendChild(newA3);
       bigDiv.appendChild(newDiv);
 }
 }

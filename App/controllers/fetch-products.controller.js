@@ -76,3 +76,43 @@ exports.getAllProductsBySeller = (req,res) => {
     });
 };
 
+exports.getProductByAuctionId = (req,res) => {
+  const aid = req.params.aid;
+
+  if(aid){
+    con.query("SELECT * FROM auction where aid = ?;",[aid],(err,result) => {
+      if(err) throw err;
+      
+      if(result.length > 0){
+
+        const pid = result[0].pid;
+
+        con.query("select p.*,s.sid,s.name from product p inner join has_pd h on h.pid = p.pid inner join seller s on s.sid = h.sid where p.pid = ?; SELECT * from image where pid = ?;",[pid,pid], (err, result) => {
+        if (err) {
+          throw err;
+        }
+      //   console.log(result);
+          const product = {
+            pid: result[0][0].pid,
+            sid: result[0][0].sid,
+            artist_name: result[0][0].name,
+            title: result[0][0].title,
+            description: result[0][0].description,
+            category: result[0][0].category,
+            images: result[1]
+          };
+        // console.log(resp);
+        res.json(product);
+    });
+      }else{
+        res.status(404).json({
+          message: "NO SUCH AUCTION"
+        });
+      }
+    });
+  }else{
+    res.status(400).json({
+      message: "AUCTION ID NOT PROVIDED"
+    });
+  }
+};

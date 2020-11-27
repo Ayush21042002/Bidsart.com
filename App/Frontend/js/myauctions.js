@@ -80,9 +80,7 @@ function auctionCard(auction,imageURI){
         let cid = localStorage.getItem("cid");
         if(cid && token){
             if(new Date() > new Date(datetime)){
-                localStorage.setItem("aid",auction.aid);
-
-                window.location = "/html/chatroom.html";
+                window.location = "/html/chatroom.html?aid=" + auction.aid;
             }else{
                 alert("The auction has not started yet");
             }

@@ -194,7 +194,7 @@
         <div class="card" style="border: none; margin: 100px auto;">
           <h3 class="bg-dark text-white" style="padding: 20px;">PRODUCT DETAILS</h3>
           <div class="img-box" style="height: 14rem;">
-            <img class="card-img-top" src="../images/4.jpg" alt="Card image cap">
+            <img id="product-image" class="card-img-top" src="../images/4.jpg" alt="Card image cap">
           </div>
           <div class="card-body bg-warning">
             <p class="card-text">
@@ -202,20 +202,20 @@
                   <tbody>
                     <tr>
                       <th scope="row">TITLE: </th>
-                      <td>TEST PRODUCT</td>
+                      <td id="title">TEST PRODUCT</td>
                     </tr>
                     <tr>
                       <th scope="row">DESCRIPTION: </th>
-                      <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia quisquam quam aut officiis qui, 
+                      <td id="description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia quisquam quam aut officiis qui, 
                         ad expedita? Aspernatur odio vitae tempore, quibusdam nemo molestias velit ipsum ducimus eum aliquam nesciunt id?</td>
                     </tr>
                     <tr>
                       <th scope="row">CATEGORY: </th>
-                      <td>SCULPTURES</td>
+                      <td id="category">SCULPTURES</td>
                     </tr>
                     <tr>
                       <th scope="row">ARTIST NAME: </th>
-                      <td>AYUSHQT</td>
+                      <td id="sname">AYUSHQT</td>
                     </tr>
                   </tbody>
                 </table>
@@ -238,12 +238,15 @@
               <ul id="users"></ul>
               <h3><i class="fas fa-user"></i> Winning User</h3>
               <div id="winning-user"></div>
+              <h3 class="mt-3"> Winning Bid</h3><br>
+              <div class="winning-user"><i class="fas fa-rupee-sign"></i><span id="winning-bid"></span></div>
             </div>
             <div class="chat-messages"></div>
           </main>
           <div class="chat-form-container">
             <form id="chat-form">
-              <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" />
+              <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" readonly />
+              <button class="btn" id="increase"><i class="fas fa-plus"></i> </button>
               <button class="btn" id="send"><i class="fas fa-paper-plane"></i> Send</button>
             </form>
           </div>
