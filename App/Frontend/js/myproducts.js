@@ -64,6 +64,7 @@ function addProduct(imgURL,title,id,type){
 						  <br>Artist
 						</p>
                     </div>
+                    <button id="edit" class="bg-warning">EDIT PRODUCT DETAILS</button>
                     <button id="schedule" class="bg-secondary">SCHEDULE AN AUCTION</button>
 				</div>
 		  </div>
@@ -114,6 +115,16 @@ function addProduct(imgURL,title,id,type){
     };
     btn2.innerHTML = "SCHEDULE AN AUCTION";
     div2.appendChild(btn2);
+    let btn3 = document.createElement("button");
+    btn3.className = "bg-warning mt-2 text-white p-3";
+    btn3.id = "edit";
+    btn3.onclick = (event) => {
+        event.preventDefault();
+
+        window.location.href = "create.html?pid="+id;
+    };
+    btn3.innerHTML = "EDIT PRODUCT DETAILS";
+    div2.appendChild(btn3);
     newDiv.appendChild(div2);
     console.log('.product-row-' + type);
     let x=document.querySelector('.product-row-' + type);

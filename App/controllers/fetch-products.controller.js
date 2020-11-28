@@ -31,21 +31,17 @@ exports.getProductByProductId = (req,res) => {
     con.query(query, [req.params.id,req.params.id],(err,result) => {
         if(err) throw err;
 
-        const resp = [];
-        for(let i=0;i<result[0].length;i++){
-            const product = {
-                pid: result[0][i].pid,
-                sid: result[0][i].sid,
-                artist_name: result[0][i].name,
-                title: result[0][i].title,
-                description: result[0][i].description,
-                category: result[0][i].category,
-                images: result[1].filter(item => item.pid == result[0][i].pid)
-            }
-            resp.push(product);
+        const product = {
+            pid: result[0][0].pid,
+            sid: result[0][0].sid,
+            artist_name: result[0][0].name,
+            title: result[0][0].title,
+            description: result[0][0].description,
+            category: result[0][0].category,
+            images: result[1]
         }
-      // console.log(resp);
-      res.json(resp);
+        // console.log(resp);
+        res.json(product);
     });
 }; 
 

@@ -132,7 +132,7 @@ body{
 
   .top-style h3{
     position: absolute;
-    top: 40%;
+    top: 30%;
     left:70.2%;
     color: #ffc93c ;
     font-style: italic;
@@ -140,7 +140,7 @@ body{
   }
   .bid{
     position: absolute;
-    top: 20%;
+    top: 15%;
     left:55%;
     font-size: 100px;  
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

@@ -1,14 +1,12 @@
 const url=window.location.href;
 const type=url.split("=")[1];
 const scheduleForm = document.getElementById("schedule");
-
-
+let productSid;
 async function loadproduct(){
     const response=await fetch("/product/" + type,{
         method: "GET"
     });
     let respText = await response.json();
-    respText = respText[0];
     productSid = respText.sid;
     console.log("running");
     checkLogin();
@@ -77,6 +75,7 @@ function setauctionproduct(auctions,image){
 
                 </div>
                 <div class="registerbttn">
+                    <button class = "registerforbid">Edit Details</button>
                     <button class="registerforbid">Register now</button>
                 </div>
             </div>
@@ -113,8 +112,28 @@ function auctionCard(auction,imageURI){
     div2.append(div3);
     var div4 = document.createElement("div");
     div4.className = "registerbtn";
+    const sid = localStorage.getItem("sid");
+    if(sid == productSid){
+        var editbtn = document.createElement("button");
+        editbtn.className = "btn btn-warning p-3 mr-2";
+        editbtn.innerHTML = "Edit Details";
+        editbtn.setAttribute("data-toggle","modal");
+        editbtn.setAttribute("data-target","#exampleModal");
+        editbtn.id = "edit";
+        editbtn.onclick = async(event) => {
+            event.preventDefault();
+            const sid = localStorage.getItem("sid");
+            const token = localStorage.getItem("token");
+
+            document.getElementById("aid").value = auction.aid;
+            document.getElementById("minBid").value = auction.minBid;
+            // console.log(auction.startTime.split(".")[0]);
+            document.getElementById("startTime").value = auction.startTime.split(".")[0];
+            };
+        div4.appendChild(editbtn);
+    }
     var btn2 = document.createElement("button");
-    btn2.className = "registerforbid";
+    btn2.className = "btn btn-primary p-3";
     btn2.innerHTML = "Register Now";
     btn2.onclick = async() => {
         let token = localStorage.getItem("token");
@@ -143,6 +162,51 @@ function auctionCard(auction,imageURI){
     document.getElementById("auctions").appendChild(div1);
 }
 
+document.getElementById("schedule-form").onsubmit = async(event) => {
+    event.preventDefault();
+
+    var aid = document.getElementById("aid").value;
+    console.log(aid,"aid");
+    var minBid = document.getElementById("minBid").value;
+    console.log(minBid,"minBid");
+    var startTime = document.getElementById("startTime").value;
+    console.log(startTime,"start");
+    var token = localStorage.getItem("token");
+    console.log(token,token);
+    var sid = localStorage.getItem("sid");
+    console.log(sid,"sid");
+    if(aid && minBid && startTime && sid && token){
+
+        console.log("ACTION");
+
+        const response = await fetch("/product/updateAuction/" + aid, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({aid,minBid,startTime})
+        });
+
+        const json = await response.json();
+
+        // alert(json.message);
+
+        if(response.status == 201){
+            alert(json.message);
+            // window.location.href = "/index.html";
+            loadproduct();
+        }
+
+        $('#exampleModal').modal('hide');
+
+        document.getElementById("aid").value = "";
+
+        document.getElementById("minBid").value = "";
+
+        document.getElementById("startTime").value = "";
+    }
+};
 
 /*---------------------------
 |  another way to load data |

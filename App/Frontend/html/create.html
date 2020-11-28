@@ -236,12 +236,12 @@
     </div>
 
     <form class="form" id="create-form" name="myForm" onsubmit="return validateForm()">
-        <h1>ADD YOUR PRODUCT</h1>
+        <h1 id="form-head">ADD YOUR PRODUCT</h1>
     
         <div class="title" id="title">
     
             <label for="title">TITLE:</label> <br>
-            <input type="text" name="title" id="title" placeholder="title of your product" required>
+            <input type="text" name="title" id="title-input" placeholder="title of your product" required>
     
         </div>
     
@@ -259,9 +259,9 @@
             <label for="category">Choose a Category:</label> <br>
             <select name="category" id="category" required>
                 <option disabled selected value> -- select an option -- </option>
-                <option value="Handicrafts">Handicrafts</option>
-                <option value="Sculptures">Sculptures</option>
-                <option value="Painting">Painting</option>
+                <option value="handicrafts">Handicrafts</option>
+                <option value="sculptures">Sculptures</option>
+                <option value="painting">Painting</option>
             </select>
     
         </div>

@@ -1,7 +1,6 @@
 // Here all the routes having http://localhost:3000/ prefix will be handled
 
 const express = require('express');
-const con = require('../database/db');
 const sellerAuth = require('../Middleware/verify-seller');
 const bookAuction = require("../controllers/book-auction.controller");
 const customerAuth = require("../Middleware/verify-customer");
@@ -14,6 +13,7 @@ const fetchAuctions = require("../controllers/fetch-auctions.controller");
 const deleteauction = require("../controllers/delete-auction.controller");
 const updateAuction = require("../controllers/update-auction.controller");
 const fetchImages = require("../controllers/fetch-images.controller");
+const updateProduct = require("../controllers/update-product.controller");
 const Router = express.Router();
 
 // Get Request
@@ -39,13 +39,9 @@ Router.post("/bookAuction",customerAuth,bookAuction.bookAuction);
 
 
 // Put requests
-Router.put('/updateProduct/:id', sellerAuth,extractFile,(req,res) => {
-    // Here the update request for product will be handled
-});
+Router.put('/updateProduct/:id', sellerAuth,updateProduct.updateProduct);
 
-Router.put("/updateAuction",sellerAuth,updateAuction.updateAuction);
-
-Router.put("/updateAuctionDetails",sellerAuth,updateAuction.updateAuction);
+Router.put("/updateAuction/:id",sellerAuth,updateAuction.updateAuction);
 
 // Delete requests
 
