@@ -85,8 +85,29 @@ function addProduct(imgURL,title,pid,Orderid,amount,paid){
         payBtn.innerHTML = "PAY " + amount;
         payBtn.style = "width: 100%";
         payBtn.id = "payNow";
-        payBtn.onclick = (event) => {
+        payBtn.onclick = async(event) => {
             event.preventDefault();
+
+            const cid = localStorage.getItem("cid");
+            const token = localStorage.getItem("token");
+
+            if(cid && token){
+                const response = await fetch("/customer/pay",{
+                    method: "POST",
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        amount,pid,Orderid
+                    })
+                });
+
+                const json = await response.json();
+
+                console.log(json.redirect);
+                window.open(json.redirect, '_blank');
+            }
 
             console.log("PAYING NOW !!!!!!!!!!!");
             console.log("FOR ORDERID ",Orderid);

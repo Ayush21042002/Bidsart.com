@@ -12,7 +12,6 @@ const registerAuction = require("../controllers/register-auction.controller");
 const fetchAuctions = require("../controllers/fetch-auctions.controller");
 const deleteauction = require("../controllers/delete-auction.controller");
 const updateAuction = require("../controllers/update-auction.controller");
-const fetchImages = require("../controllers/fetch-images.controller");
 const updateProduct = require("../controllers/update-product.controller");
 const Router = express.Router();
 

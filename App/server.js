@@ -3,14 +3,14 @@ const express = require('express'); // importing express framework
 const path = require("path"); // importing path module for working with files and directiory paths
 const http = require("http"); // importing the http module for creating server
 const socketio = require("socket.io");  // importing socket.io module for Live-chat
-
-const cors = require("cors"); // importing cors for cross origin resource sharing
+// const cors = require("cors"); // importing cors for cross origin resource sharing
 
 // Calls the express function "express()" and puts new Express application inside the app variable
 const app = express(); 
 const con = require('./database/db'); //importing database connection 
 
-app.use(cors());  // middleware setting up app for cross origin sharing
+
+// app.use(cors());  // middleware setting up app for cross origin sharing
 // Setting the middleware for json objects
 // parse incoming Request Object as a JSON Object
 app.use(express.json());
