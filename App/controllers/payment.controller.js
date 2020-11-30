@@ -160,7 +160,7 @@ exports.successHandler = (req,res) => {
                         //The response will contain a base64 encoded PDF file
                         // console.log(result.pdf);
                         
-                        let filename = path.resolve(__dirname,"../invoices/" + customer.fname + "-" + new Date().getUTCDate + "-"+ Orderid + "-invoice.pdf");
+                        let filename = path.resolve(__dirname,"../invoices/" + customer.fname + "-" + new Date().getUTCDate() + "-"+ Orderid + "-invoice.pdf");
 
                         await fs.writeFileSync(filename,result.pdf,'base64');
 
