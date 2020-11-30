@@ -21,13 +21,15 @@ async function fetchOrders(){
         console.log(orders);
         
         for(let i=0;i<orders.length;i++){
-            addProduct(orders[i].imageURI,orders[i].title,orders[i].pid,orders[i].Orderid,orders[i].amount,orders[i].paid);
+            addProduct(orders[i].imageURI,orders[i].title,
+                orders[i].pid,orders[i].Orderid,orders[i].amount,
+                orders[i].paid,orders[i].invoiceURI);
         }
     }
 
 }
 
-function addProduct(imgURL,title,pid,Orderid,amount,paid){
+function addProduct(imgURL,title,pid,Orderid,amount,paid,invoice){
    /*
          <div class="col-sm-4">
             <div class="card" style="border: none;">
@@ -118,6 +120,12 @@ function addProduct(imgURL,title,pid,Orderid,amount,paid){
         span1.id = "amount";
         span1.innerHTML = "<i class='fas fa-rupee-sign'></i> " + amount;
         p.appendChild(span1);
+        let a = document.createElement("a");
+        a.className = "btn btn-primary";
+        a.innerHTML = "INVOICE";
+        a.href = invoice;
+        a.target = "_blank";
+        p.appendChild(a);
     }
     div5.appendChild(p);
     div2.appendChild(div5);

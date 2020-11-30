@@ -1,5 +1,8 @@
 const con = require("../database/db");
 const paypal = require("paypal-rest-sdk");
+const easyinvoice = require("easyinvoice");
+const fs = require("fs");
+const path = require("path");
 
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
@@ -18,7 +21,7 @@ exports.makePayment = (req,response) => {
     const orderid = req.body.Orderid;
     // console.log(pid,amount);
 
-    con.query("SELECT p.*,s.* FROM product p inner join seller s on s.sid = p.sid where p.pid = ?",
+    con.query("SELECT * FROM product p where p.pid = ?",
     [pid], (err,result) => {
         if(err) throw err;
 
@@ -76,6 +79,9 @@ exports.successHandler = (req,res) => {
     con.query("SELECT * FROM Orders where Orderid = ?;",[Orderid], (err,result) => {
         if(err) throw err;
 
+        const cid = result[0].cid;
+        const aid = result[0].aid;
+
         const amount = (Number(result[0].amount) * 0.014).toFixed(2);
         const payerId = req.query.PayerID;
         const paymentId = req.query.paymentId;
@@ -96,10 +102,76 @@ exports.successHandler = (req,res) => {
                 throw error;
             } else {
                 console.log(JSON.stringify(payment));
-                con.query("UPDATE Orders SET paid = 1 where Orderid = ?;",[Orderid],(err,updateResult) => {
+                let query1 = "SELECT s.*,p.title from seller s inner join product p on p.sid = s.sid inner join auction a on a.pid = p.pid and a.aid = ?;";
+                let query2 = "SELECT * FROM customer where cid = ?;";
+                con.query(query1 + query2,[aid,cid],(err,result) => {
                     if(err) throw err;
 
-                    res.redirect("/html/myOrders.html");
+                    const sellerProduct = result[0][0];
+                    const customer = result[1][0];
+
+                    var data = {
+                        //"documentTitle": "RECEIPT", //Defaults to INVOICE
+                        "currency": "USD",
+                        "taxNotation": "gst", //or gst
+                        "marginTop": 25,
+                        "marginRight": 25,
+                        "marginLeft": 25,
+                        "marginBottom": 25,
+                        "logo": "http://localhost:3000/images/LOGO.png", //or base64
+                        //"logoExtension": "png", //only when logo is base64
+                        "sender": {
+                            "company": sellerProduct.name,
+                            "address": sellerProduct.addrLine,
+                            "zip": sellerProduct.zip,
+                            "city": sellerProduct.city,
+                            "state": sellerProduct.state,
+                            "country": "INDIA"
+                            //"custom1": "custom value 1",
+                            //"custom2": "custom value 2",
+                            //"custom3": "custom value 3"
+                        },
+                        "client": {
+                            "company": customer.fname + " " + customer.lname,
+                            "address": customer.addLine,
+                            "zip": customer.zip,
+                            "city": customer.city,
+                            "state": customer.state,
+                            "country": customer.state,
+                            //"custom1": "custom value 1",
+                            //"custom2": "custom value 2",
+                            //"custom3": "custom value 3"
+                        },
+                        "invoiceNumber": "2020.0001",
+                        "invoiceDate": new Date(),
+                        "products": [
+                            {
+                                "quantity": "1",
+                                "description": sellerProduct.title,
+                                "tax": 0,
+                                "price": amount
+                            }
+                        ],
+                        "bottomNotice": "Please Keep the Invoice safe for future grieviances"
+                    };
+                    
+                    //Create your invoice! Easy!
+                    easyinvoice.createInvoice(data, async function (result) {
+                        //The response will contain a base64 encoded PDF file
+                        // console.log(result.pdf);
+                        
+                        let filename = path.resolve(__dirname,"../invoices/" + customer.fname + "-" + new Date().getUTCDate + "-"+ Orderid + "-invoice.pdf");
+
+                        await fs.writeFileSync(filename,result.pdf,'base64');
+
+                        const URI = req.protocol + "://" + req.get('host') + "/invoices/" + customer.fname + "-" + new Date().getUTCDate() + "-"+ Orderid + "-invoice.pdf";
+                        con.query("UPDATE Orders SET paid = 1,invoiceURI = ? where Orderid = ?;",[URI,Orderid],(err,result) => {
+                            if(err) throw err;
+
+                            res.redirect("/html/myOrders.html");
+                        });
+                    });
+
                 });
             }
         });

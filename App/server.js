@@ -22,6 +22,7 @@ const productRoutes = require("./routes/products");
 
 // middleware for serving static images stored in images folder
 app.use("/images", express.static(path.resolve(__dirname, "images")));
+app.use("/invoices", express.static(path.resolve(__dirname, "invoices")));
 
 app.use(express.static(path.join(__dirname, 'Frontend')));
 
