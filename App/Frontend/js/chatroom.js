@@ -68,6 +68,17 @@ socket.on('message', message => {
     
     outputMessage(message);
 
+    
+    if(message.winningUser.cid == localStorage.getItem("cid")){
+        document.getElementById("leave-room").disabled = true;
+        document.getElementById("send").disabled = true;
+        document.getElementById("increase").disabled = true;
+    }else{
+        document.getElementById("leave-room").disabled = false;
+        document.getElementById("send").disabled = false;
+        document.getElementById("increase").disabled = false;
+    }
+
     // Scroll down
     chatMessage.scrollTop = chatMessage.scrollHeight;
 });
