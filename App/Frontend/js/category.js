@@ -93,7 +93,7 @@ function addProduct(imgURL,title,id){
     let btn=document.createElement('a');
     btn.className='details';
     btn.href = "./product.html?type=" + id;
-    btn.style.outline='none';
+    btn.style="text-decoration:none;color:white";
     btn.innerHTML='View Details';
     div4.appendChild(btn);
     div3.appendChild(div4);
