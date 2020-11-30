@@ -86,6 +86,15 @@ div.carousel-inner {
     width: 100%;
 }
 
+.cancelbtn {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    background-color: red;
+    padding: 15px;
+    color: white;
+}
+
 
 .bidbtn,.paradetails,.registerbtn {
     background-color: #221122;

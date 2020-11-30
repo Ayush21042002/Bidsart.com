@@ -30,7 +30,8 @@ exports.addProduct = (req,resp) => {
 
   let category = req.body.category.toLowerCase();
 
-  con.query("INSERT INTO product(title,description,category) VALUES (?)",[[req.body.title,req.body.description,category]], (err,result) => {
+  con.query("INSERT INTO product(title,description,category,sid) VALUES (?)",
+  [[req.body.title,req.body.description,category,req.sellerData.sid]], (err,result) => {
     if(err) throw err;
 
     const productId = result.insertId;
@@ -48,25 +49,11 @@ exports.addProduct = (req,resp) => {
     con.query("INSERT INTO image(pid,imageURI) VALUES ?", [images], (err,re) => {
       if(err){
         con.query("DELETE FROM product where pid = ?",[productId],(err,res) => {});
-      }
+        throw err;
+              }
 
-      const sellerId = Number(req.sellerData.sid);
-
-      con.query("INSERT INTO has_pd(sid,pid) VALUES (?)", [[sellerId,productId]],(err,res) => {
-        if(err){
-          con.query("DELETE FROM image where pid = ?",[productId], (err,imageResult) => {
-            if(err) throw err;
-
-            con.query("DELETE FROM product where pid = ?",[productId],(err,productResult) => {
-              if(err) throw err;
-            });
-          });
-          throw err;
-        }
-
-        resp.status(201).json({
-          message: "Product successfully added"
-          });
+      resp.status(201).json({
+        message: "Product successfully added"
       });
     });
   });

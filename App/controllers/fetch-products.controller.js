@@ -2,7 +2,7 @@ const con = require('../database/db');
 
 exports.getAllProducts = (req,res,next) => {
     
-    con.query("select p.*,s.sid,s.name from product p inner join has_pd h on h.pid = p.pid inner join seller s on s.sid = h.sid order by p.pid; SELECT * from image order by pid;", (err, result) => {
+    con.query("select p.*,s.sid,s.name from product p inner join seller s on s.sid = p.sid order by p.pid; SELECT * from image order by pid;", (err, result) => {
       if (err) {
         throw err;
       }
@@ -26,7 +26,7 @@ exports.getAllProducts = (req,res,next) => {
 };
 
 exports.getProductByProductId = (req,res) => {
-    const query = "SELECT p.*,s.sid,s.name FROM product p inner join has_pd h on h.pid = p.pid inner join seller s on s.sid = h.sid where p.pid = ?; SELECT * FROM image where pid = ?;";
+    const query = "SELECT p.*,s.sid,s.name FROM product p inner join seller s on s.sid = p.sid where p.pid = ?; SELECT * FROM image where pid = ?;";
     // console.log(req.params.id);
     con.query(query, [req.params.id,req.params.id],(err,result) => {
         if(err) throw err;
@@ -48,7 +48,7 @@ exports.getProductByProductId = (req,res) => {
 exports.getAllProductsBySeller = (req,res) => {
     const sellerId = req.params.sellerId;
 
-  con.query("SELECT * FROM product where pid IN (SELECT pid from has_pd where sid = ?); SELECT * FROM image where pid IN (SELECT pid from has_pd where sid = ?);",
+  con.query("SELECT * FROM product where sid = ?; SELECT * FROM image where pid IN (SELECT pid from product where sid = ?);",
     [sellerId,sellerId], (err,result)=> {
 
       if(err) throw err;
@@ -83,7 +83,7 @@ exports.getProductByAuctionId = (req,res) => {
 
         const pid = result[0].pid;
 
-        con.query("select p.*,s.sid,s.name from product p inner join has_pd h on h.pid = p.pid inner join seller s on s.sid = h.sid where p.pid = ?; SELECT * from image where pid = ?;",[pid,pid], (err, result) => {
+        con.query("select p.*,s.sid,s.name from product p inner join seller s on s.sid = p.sid where p.pid = ?; SELECT * from image where pid = ?;",[pid,pid], (err, result) => {
         if (err) {
           throw err;
         }

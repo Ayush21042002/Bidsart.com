@@ -86,6 +86,31 @@ function setauctionproduct(auctions,image){
 function auctionCard(auction,imageURI){
     var div1 = document.createElement("div");
     div1.className = "registerproduct col-lg-6";
+    const sid = localStorage.getItem("sid");
+    const token = localStorage.getItem("token");
+    if(sid == productSid){
+        var cancelBtn = document.createElement("button");
+        cancelBtn.className = "cancelbtn";
+        cancelBtn.innerHTML = "Cancel the Auction";
+        cancelBtn.onclick = async(event) => {
+            event.preventDefault();
+
+            if(sid && token){
+                const response = await fetch("/product/deleteauction/" + auction.aid,{
+                    method: "DELETE",
+                    headers: {
+                        'Authorization': "Bearer " + token
+                    }
+                });
+
+                const json = await response.json();
+
+                alert(json.message);
+                window.location.href = "/index.html";
+            }
+        }
+        div1.append(cancelBtn);
+    }
     var btn = document.createElement("button");
     btn.className = "bidbtn";
     var img = document.createElement("img");
@@ -112,7 +137,7 @@ function auctionCard(auction,imageURI){
     div2.append(div3);
     var div4 = document.createElement("div");
     div4.className = "registerbtn";
-    const sid = localStorage.getItem("sid");
+    // const sid = localStorage.getItem("sid");
     if(sid == productSid){
         var editbtn = document.createElement("button");
         editbtn.className = "btn btn-warning p-3 mr-2";
@@ -122,9 +147,6 @@ function auctionCard(auction,imageURI){
         editbtn.id = "edit";
         editbtn.onclick = async(event) => {
             event.preventDefault();
-            const sid = localStorage.getItem("sid");
-            const token = localStorage.getItem("token");
-
             document.getElementById("aid").value = auction.aid;
             document.getElementById("minBid").value = auction.minBid;
             // console.log(auction.startTime.split(".")[0]);

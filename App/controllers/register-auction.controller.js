@@ -9,6 +9,8 @@ exports.registerAuction = (req,res) => {
         status: "scheduled"
     };
 
+    console.log(auction.startTime);
+
     con.query("INSERT INTO auction SET ?",auction, (err,result) => {
         if(err) throw err;
 

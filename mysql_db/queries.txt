@@ -1,0 +1,97 @@
+
+{% comment %} 
+    These are the create queries to run in the command client or workbench to create the necessary queries
+{% endcomment %}
+
+create database bidsart; 
+
+use bidsart;
+
+create table user(
+uid int auto_increment,
+email varchar(100) not null unique,
+password varchar(300) not null,
+primary key(uid));
+
+create table customer(
+cid int,
+fname varchar(20) not null,
+lname varchar(40),
+addLine varchar(200) not null,
+city varchar(30) not null,
+state varchar(30) not null,
+country varchar(30) not null,
+zip int not null,
+landmark varchar(100),
+coCode varchar(5) not null,
+contact varchar(10) not null,
+primary key(cid),
+foreign key(cid) references user(uid) ON DELETE CASCADE);
+
+create table seller(
+sid int,
+name varchar(50) not null,
+addrLine varchar(200) not null,
+city varchar(30) not null,
+state varchar(30) not null,
+zip int not null,
+landmark varchar(100),
+bankName varchar(150),
+accNo varchar(15),
+panNo varchar(10) not null unique,
+contact1 varchar(10) not null,
+contact2 varchar(10),
+primary key(sid),
+foreign key(sid) references user(uid) ON DELETE CASCADE);
+
+create table product(
+pid int auto_increment,
+sid int,
+title varchar(150) not null,
+description varchar(2000) not null,
+category varchar(20) not null,
+primary key(pid),
+foreign key(sid) references seller(sid));
+
+create table image(
+pid int,
+imageURI varchar(400) not null,
+foreign key(pid) references product(pid) ON DELETE CASCADE);
+
+create table auction(
+aid int auto_increment,
+pid int,
+startTime datetime not null,
+minBid decimal(10,2) default 0.00,
+status varchar(20) default “scheduled”,
+endTime datetime,
+primary key(aid),
+foreign key(pid) references product(pid) ON DELETE CASCADE);
+
+create table auct_reg(
+cid int,
+aid int,
+foreign key(cid) references customer(cid) ON DELETE CASCADE,
+foreign key(aid) references auction(aid) ON DELETE CASCADE);
+
+create table auct_log(
+aid int,
+cid int,
+id varchar(400) not null,
+username varchar(50) not null,
+currBid decimal(10,2) default 0.00,
+joinTime datetime not null,
+isWinner Boolean default 0,
+foreign key(aid) references auction(aid) ON DELETE CASCADE,
+foreign key(cid) references customer(cid) ON DELETE CASCADE);
+
+create table orders(
+Orderid int auto_increment,
+aid int,
+cid int,
+amount decimal(10,2) default 0.00,
+invoiceURI varchar(400),
+paid boolean default 0,
+primary key(Orderid),
+foreign key(cid) references customer(cid) ON DELETE CASCADE,
+foreign key(aid) references auction(aid) ON DELETE CASCADE);

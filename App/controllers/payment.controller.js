@@ -14,11 +14,11 @@ exports.makePayment = (req,response) => {
     // const cid = req.customerData.cid;
 
     const pid = req.body.pid;
-    const amount = req.body.amount;
+    const amount = (Number(req.body.amount) * 0.014).toFixed(2);
     const orderid = req.body.Orderid;
     // console.log(pid,amount);
 
-    con.query("SELECT p.*,s.* FROM product p inner join has_pd h on h.pid = p.pid inner join seller s on s.sid = h.sid where p.pid = ?",
+    con.query("SELECT p.*,s.* FROM product p inner join seller s on s.sid = p.sid where p.pid = ?",
     [pid], (err,result) => {
         if(err) throw err;
 
@@ -73,14 +73,13 @@ exports.makePayment = (req,response) => {
 exports.successHandler = (req,res) => {
     const Orderid = req.params.id;
 
-    con.query("SELECT * FROM Orders where Orderid = ?;UPDATE Orders SET paid = 1 where Orderid = ?;",[Orderid,Orderid], (err,result) => {
+    con.query("SELECT * FROM Orders where Orderid = ?;",[Orderid], (err,result) => {
         if(err) throw err;
 
-        const amount = result[0][0].amount;
-
+        const amount = (Number(result[0].amount) * 0.014).toFixed(2);
         const payerId = req.query.PayerID;
         const paymentId = req.query.paymentId;
-
+        // console.log(amount);
         const execute_payment_json = {
             "payer_id": payerId,
             "transactions": [{
@@ -97,7 +96,11 @@ exports.successHandler = (req,res) => {
                 throw error;
             } else {
                 console.log(JSON.stringify(payment));
-                res.redirect("/");
+                con.query("UPDATE Orders SET paid = 1 where Orderid = ?;",[Orderid],(err,updateResult) => {
+                    if(err) throw err;
+
+                    res.redirect("/html/myOrders.html");
+                });
             }
         });
     });

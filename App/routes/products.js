@@ -7,7 +7,6 @@ const customerAuth = require("../Middleware/verify-customer");
 const extractFile = require('../Middleware/file-upload');
 const fetchProducts = require('../controllers/fetch-products.controller');
 const addProduct = require("../controllers/add-product.controller");
-const deleteProduct = require("../controllers/delete-product.controller");
 const registerAuction = require("../controllers/register-auction.controller");
 const fetchAuctions = require("../controllers/fetch-auctions.controller");
 const deleteauction = require("../controllers/delete-auction.controller");
@@ -41,9 +40,6 @@ Router.put('/updateProduct/:id', sellerAuth,updateProduct.updateProduct);
 Router.put("/updateAuction/:id",sellerAuth,updateAuction.updateAuction);
 
 // Delete requests
-
-Router.delete('/deleteProduct/:id', sellerAuth,deleteProduct.deleteProductbyId);
-
 Router.delete("/deleteauction/:auctionId",sellerAuth,deleteauction.deleteAuctionByAuctionId);
 
 Router.delete("/deleteauctions/:productId", sellerAuth, deleteauction.deleteAuctionsByProductId);

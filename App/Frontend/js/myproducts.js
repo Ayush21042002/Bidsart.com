@@ -141,6 +141,8 @@ scheduleForm.onsubmit = async(event) => {
     var minBid = document.getElementById("minBid").value;
 
     var startTime = document.getElementById("startTime").value;
+
+    console.log(startTime);
     
     var token = localStorage.getItem("token");
 

@@ -1,5 +1,6 @@
 document.onload = loadauctions();
 
+
 async function loadauctions(){
     const token = localStorage.getItem("token");
     const cid = localStorage.getItem("cid");
@@ -79,7 +80,7 @@ function auctionCard(auction,imageURI){
         let token = localStorage.getItem("token");
         let cid = localStorage.getItem("cid");
         if(cid && token){
-            if(new Date() > new Date(datetime)){
+            if(new Date().toUTCString() > new Date(datetime).toISOString()){
                 window.location = "/html/chatroom.html?aid=" + auction.aid;
             }else{
                 alert("The auction has not started yet");

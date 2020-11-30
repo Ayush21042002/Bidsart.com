@@ -17,6 +17,8 @@ async function loaddata(){
   });
 
   function creatediv(givendata){
+
+    //   console.log(givendata.startTime);
       var newdiv = document.createElement('div');
       newdiv.className = 'con';
       document.getElementsByClassName("gridcon")[0].appendChild(newdiv);
@@ -28,13 +30,21 @@ async function loaddata(){
       img.setAttribute('src' , givendata.imageURI);
       bttn.appendChild(img);
 
-      var h4 = document.createElement("h4");
-      h4.className = "auctiontime";
-      h4.innerHTML = givendata.startTime.replace("T"," ").split(".")[0];
+      var h41 = document.createElement("h4");
+      h41.className = "auctiondate";
+      h41.innerHTML = givendata.startTime.split("T")[0];
+    //   console.log(givendata.startTime.replace("T"," ").split(".")[0]);
+
+      var h42 = document.createElement("h4");
+      h42.className = "auctiontime";
+      h42.innerHTML = givendata.startTime.split("T")[1].split(".")[0] + " UTC";
+      
+
       var p = document.createElement("p");
-      p.innerHTML = givendata.minBid + " Rupees";
+      p.innerHTML = " <i class='fas fa-rupee-sign'></i> " + givendata.minBid;
     
-      newdiv.appendChild(h4);
+      newdiv.appendChild(h41);
+      newdiv.appendChild(h42);
       newdiv.appendChild(p);
       
       var button = document.createElement('button');
