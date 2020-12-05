@@ -3,14 +3,15 @@ body{
     padding: 0px;
     background-color: white;
     /* font-family:  'Arial Narrow', Arial, sans-serif; */
+    background-image: url(../images/wp4363669-minimalist-wallpapers.jpg);
   }
 .form{
     box-shadow: 0 0 5px rgb(0, 0, 0);
     background-color:white;
     width: fit-content;
     margin: auto;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 10em;
+    margin-bottom: 10em;
     padding: 2em;
     transition: 2s;
     position: relative;
@@ -20,7 +21,7 @@ body{
     border-radius: 0.3em;
 }
 .button {
-    background-color: #f0a500; 
+    background-color: #40a8c4; 
     border: none;
     outline: none ;
     color: white;
@@ -58,6 +59,6 @@ label{
   h1{
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color:#f0a500 ;
+    color:#07689f ;
     box-shadow: 0 1px 0px#3f3f44;
    }
