@@ -24,7 +24,7 @@ form.onsubmit = async(event) => {
       userType = "seller";
     }
 
-    const response = await fetch("/" + userType +"/login",{
+    const response = await fetch("/" + userType +"/login",{       // /customer/login or /seller/login
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -171,7 +171,6 @@ logout.onclick = (event) => {
 
     localStorage.removeItem("cid");
     localStorage.removeItem("fname");
-    localStorage.removeItem("mname");
     localStorage.removeItem("lname");
 
 
