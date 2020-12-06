@@ -104,7 +104,7 @@ function addProduct(imgURL,title,id,type){
         modal for @mdo</button>
     */
     let btn2 = document.createElement("button");
-    btn2.className = "bg-secondary text-white p-3";
+    btn2.className = "bg-secondary m-auto text-white p-3";
     btn2.id = "schedule";
     btn2.setAttribute("data-toggle","modal");
     btn2.setAttribute("data-target","#exampleModal");
@@ -114,9 +114,11 @@ function addProduct(imgURL,title,id,type){
         document.getElementById("pid").value = id;
     };
     btn2.innerHTML = "SCHEDULE AN AUCTION";
+    btn2.style.width = "80%";
     div2.appendChild(btn2);
     let btn3 = document.createElement("button");
-    btn3.className = "bg-warning mt-2 text-white p-3";
+    btn3.className = "bg-warning mt-2 m-auto text-white p-3";
+    btn3.style.width = "80%";
     btn3.id = "edit";
     btn3.onclick = (event) => {
         event.preventDefault();
