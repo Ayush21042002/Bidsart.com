@@ -1,9 +1,11 @@
 /* PROFILE CSS */
-
-.form-div{
+body{
+    background-image: url(../images/VCERv0o-minimalist-wallpapers.png);
+}
+/* .form-div{
     background-image: url("../images/wallhaven-6k98vq.jpg");
     padding: 10px;
-}
+} */
 
  form{
     margin: auto;
@@ -16,6 +18,9 @@
    padding: 1em;
    border-radius: 5px;
    padding: 2.5em;
+   position: relative;
+   top: 40%;
+   /* left: 10%; */
 } 
 .fandlname,.csc,.zipland,.codecontact,.accountinfo{
     display: flex;
@@ -62,12 +67,12 @@ label,input{
 
 form h1{
     text-align: center;
-    color: #f0a500;
+    color: #07689f;
     box-shadow: 0px 2px 0px rgb(110, 110, 110);
 }
 form h3{
     margin-top: 1em;
-    color: #f0a500;
+    color: #40a8c4;
 }
 
 .fname,.lname,.csc,.zipland,.codecontact{
@@ -78,9 +83,10 @@ form h3{
     margin-left: 4em;
 }
 input{
-    border-radius: 1px;
-    border-color: #f0a500;
-   height: 35px;
+    border-radius: .02px;
+    border-color: #40a8c4;
+    outline: none;
+   height: 33px;
     outline: none;
 
 }
@@ -127,7 +133,7 @@ input{
     width: 150px;
     text-align: center;
     /* margin-left: 375px; */
-    background-color:#f0a500;
+    background-color:#40a8c4;
     outline: none;
     border: none;
     color: rgb(255, 255, 255);
@@ -144,7 +150,7 @@ input{
     width: 150px;
     text-align: center;
     /* margin-left: 375px; */
-    background-color:#f0a500;
+    background-color:#40a8c4;
     outline: none;
     border: none;
     color: rgb(255, 255, 255);
@@ -160,7 +166,7 @@ input{
     width: 150px;
     text-align: center;
     /* margin-left: 375px; */
-    background-color:#f0a500;
+    background-color:#40a8c4;
     outline: none;
     border: none;
     color: rgb(255, 255, 255);
