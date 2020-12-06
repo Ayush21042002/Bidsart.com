@@ -4,10 +4,11 @@ async function loaddata(){
     });
     let data=await response.json();
     let message = data.message;
-    console.log(data);
+    //console.log(data);
     data = data.auctions;
     for(var i=0;i< data.length;i++){
         creatediv(data[i]);
+        //console.log(data[i].minBid);
     }
   }
   
@@ -16,41 +17,47 @@ async function loaddata(){
       console.error(error);
   });
 
+
   function creatediv(givendata){
 
-    //   console.log(givendata.startTime);
-      var newdiv = document.createElement('div');
-      newdiv.className = 'con';
-      document.getElementsByClassName("gridcon")[0].appendChild(newdiv);
+      console.log(givendata);
+      var grandparentdiv = document.getElementsByClassName("gridmain")[0];
+
+      var parentdiv = document.createElement('div');
+      parentdiv.className = 'gridcon';
+      grandparentdiv.appendChild(parentdiv);
+      // image-button
       var bttn = document.createElement('button');
-      bttn.className ='imagebttn'; 
-      newdiv.appendChild(bttn)
+      bttn.className="bttn";
+      parentdiv.appendChild(bttn);
+
+      //image 
       var img = document.createElement('img');
       img.className = 'bidimage';
       img.setAttribute('src' , givendata.imageURI);
       bttn.appendChild(img);
 
-      var h41 = document.createElement("h4");
-      h41.className = "auctiondate";
-      h41.innerHTML = givendata.startTime.split("T")[0];
-    //   console.log(givendata.startTime.replace("T"," ").split(".")[0]);
-
-      var h42 = document.createElement("h4");
-      h42.className = "auctiontime";
-      h42.innerHTML = givendata.startTime.split("T")[1].split(".")[0] + " UTC";
-      
-
-      var p = document.createElement("p");
-      p.innerHTML = " <i class='fas fa-rupee-sign'></i> " + givendata.minBid;
+      //auction time
+      var scheduletime = document.createElement('div');
+      scheduletime.className ='schedule';
+      var date = givendata.startTime.split("T")[0];
+      var time = givendata.startTime.split("T")[1];
+      var text = `<p><strong>`+date +` </strong><strong>`+time+`</strong></p>`;
+      scheduletime.innerHTML = text;;
+      parentdiv.appendChild(scheduletime);
     
-      newdiv.appendChild(h41);
-      newdiv.appendChild(h42);
-      newdiv.appendChild(p);
-      
+      //bid rate
+      var bidrate = document.createElement('div');
+      bidrate.className = 'bidrate';
+      text = `<p>Starting Bid: <strong>$`+givendata.minBid+`.00</strong></p>`;
+      bidrate.innerHTML = text;
+      parentdiv.appendChild(bidrate);
+
+      //register button
       var button = document.createElement('button');
       button.className = 'bidbttn';
       button.innerHTML = 'Register now';
-      newdiv.appendChild(button);
+      parentdiv.appendChild(button);
 
       bttn.onclick = function(){
         var str1 = "./product.html?id=";
