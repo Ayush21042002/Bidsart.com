@@ -162,7 +162,7 @@ exports.successHandler = (req,res) => {
                         
                         let filename = path.resolve(__dirname,"../invoices/" + customer.fname + "-" + new Date().getUTCDate() + "-"+ Orderid + "-invoice.pdf");
 
-                        await fs.writeFileSync(filename,result.pdf,'base64');
+                        fs.writeFileSync(filename,result.pdf,'base64');
 
                         const URI = req.protocol + "://" + req.get('host') + "/invoices/" + customer.fname + "-" + new Date().getUTCDate() + "-"+ Orderid + "-invoice.pdf";
                         con.query("UPDATE Orders SET paid = 1,invoiceURI = ? where Orderid = ?;",[URI,Orderid],(err,result) => {
