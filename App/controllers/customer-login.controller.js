@@ -33,7 +33,7 @@ exports.customerLogin = (req, resp, next) => {
                     const token = jwt.sign(
                         { email: result[0].email, cid: userId },
                         "Thisistheverificatonsecretkeyforcustomers",
-                        { expiresIn: "1h" }
+                        { expiresIn: "10h" }
                     );
                     resp.status(200).json({
                         token: token,
