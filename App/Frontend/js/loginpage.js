@@ -89,7 +89,26 @@ form.onsubmit = async(event) => {
     }, 3000);
   }
 }
-
+ 
+document.getElementById("CLOSE").addEventListener('click',function(){
+  email.value="";
+  password.value="";
+  email.style.border = "1.4px solid black";
+  password.style.border = "1.4px solid black";
+  document.getElementById("error1").innerHTML = "";
+  document.getElementById("error2").innerHTML = "";
+});
+document.addEventListener('click',function(){
+  email.value="";
+  password.value="";
+  email.style.border = "1.4px solid black";
+  password.style.border = "1.4px solid black";
+  document.getElementById("error1").innerHTML = "";
+      document.getElementById("error2").innerHTML = "";
+})
+document.getElementsByClassName("modal fade")[0].addEventListener('click',function(e){
+  e.stopPropagation();
+})
 document.onload = checkLogin()
 
 function checkLogin(){
