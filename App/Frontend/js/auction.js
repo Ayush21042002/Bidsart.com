@@ -48,7 +48,7 @@ async function loaddata(){
     
       //bid rate
       var bidrate = document.createElement('div');
-      bidrate.className = 'bidrate';
+      bidrate.className = 'bidrate p-3';
       text = `<p  class="text-success">Starting Bid: <strong><i class="fas fa-rupee-sign"></i> `+givendata.minBid+`.00</strong></p>`;
       bidrate.innerHTML = text;
       parentdiv.appendChild(bidrate);

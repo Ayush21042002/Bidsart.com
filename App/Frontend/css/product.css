@@ -118,3 +118,7 @@ div.carousel-inner {
     color: white;
     border: solid white 3px;
 }
+
+tr{
+    border: solid 3px black;
+}
