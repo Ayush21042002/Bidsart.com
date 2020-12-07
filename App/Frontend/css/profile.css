@@ -9,8 +9,8 @@ body{
 
  form{
     margin: auto;
-   margin-top: 5em;
-   margin-bottom: 5em;
+   margin-top: 15em;
+   margin-bottom: 15em;
    background-color:white;
    scroll-behavior: smooth;
    box-shadow: 0 0 5px rgb(0, 0, 0);
@@ -88,6 +88,7 @@ input{
     outline: none;
    height: 33px;
     outline: none;
+    padding: .5em;
 
 }
 
