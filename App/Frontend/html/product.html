@@ -298,15 +298,21 @@
         </div>
         <div id="details" class="griditems">
             
-            <h5>Product ID: <strong id="productid"></strong></h5>
-            <p id="title"></p>
-            <p id="description"></p>
-            <div>
-                <table class="table table-sm table-borderless mb-0">
+            <div class="p-3">
+                <table class="table table-sm table-borderless mb-0 bg-light">
+                    <thead><b><p id="title" style="font-size: 30px;"></p></b></thead>
                     <tbody>
                         <tr>
-                            <th class="pl-0 w-25" scope="row"><strong>Type</strong></th>
-                            <td id="category">modern-sculpture</td>
+                          <th class="pl-0 w-25 p-3" scope="row"><h5>PRODUCT ID: </h5></th>
+                          <td class="p-3"><h5><strong id="productid"></strong></h5></td>
+                        </tr>
+                        <tr>
+                          <th class="pl-0 w-25 p-3" scope="row"><strong>DESCRIPTION:</strong> </th>
+                          <td class="p-3"><p id="description"></p></td>
+                        </tr>
+                        <tr>
+                          <th class="pl-0 w-25 p-3" scope="row"><strong>CATEGORY</strong></th>
+                          <td class="p-3" id="category"></td>
                         </tr>
                     </tbody>
                 </table>

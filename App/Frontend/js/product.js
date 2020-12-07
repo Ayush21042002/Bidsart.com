@@ -123,9 +123,9 @@ function auctionCard(auction,imageURI){
     var div3 = document.createElement("div");
     div3.className = "paradetails";
     var h4d = document.createElement("h4");
-    h4d.className = "auctiondate";
+    h4d.className = "auctiondate text-white";
     var h4t = document.createElement("h4");
-    h4t.className = "auctiontime";
+    h4t.className = "auctiontime text-white";
     let datetime = auction.startTime.replace("T"," ").split(".")[0];
     h4d.innerHTML = datetime.split(" ")[0];
     h4t.innerHTML = datetime.split(" ")[1];
