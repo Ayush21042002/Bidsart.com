@@ -33,7 +33,7 @@ body {
 }
 
 div.carousel-inner {
-    height: 300px !important;
+    height: 400px ;
 }  
 
 
@@ -50,7 +50,7 @@ div.carousel-inner {
 
 .images {
     width: 100%;
-    height: 100%;
+    height: 400px;
 }
 
 #heading{
