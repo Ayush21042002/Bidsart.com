@@ -70,10 +70,11 @@ function addProduct(imgURL,title,id,type){
 		  </div>
    */
     let newDiv=document.createElement('div');
-    newDiv.className="col-sm-4";
+    newDiv.className="col-lg-4";
     let div2=document.createElement('div');
     div2.className='card';
     div2.style.border='none';
+    div2.style = "padding:30px; background-color:grey;";
     let div3=document.createElement('div');;
     div3.className='img-box';
     div3.style.height='14rem';
@@ -104,7 +105,7 @@ function addProduct(imgURL,title,id,type){
         modal for @mdo</button>
     */
     let btn2 = document.createElement("button");
-    btn2.className = "bg-secondary m-auto text-white p-3";
+    btn2.className = "m-auto text-white p-3";
     btn2.id = "schedule";
     btn2.setAttribute("data-toggle","modal");
     btn2.setAttribute("data-target","#exampleModal");
@@ -115,10 +116,12 @@ function addProduct(imgURL,title,id,type){
     };
     btn2.innerHTML = "SCHEDULE AN AUCTION";
     btn2.style.width = "80%";
+    btn2.style = "border-radius:10px; background-color:black;"
     div2.appendChild(btn2);
     let btn3 = document.createElement("button");
-    btn3.className = "bg-warning mt-2 m-auto text-white p-3";
+    btn3.className = "m-auto text-white p-3";
     btn3.style.width = "80%";
+    btn3.style = "border-radius:10px; background-color:#D3D3D3;"
     btn3.id = "edit";
     btn3.onclick = (event) => {
         event.preventDefault();

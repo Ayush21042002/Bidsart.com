@@ -79,8 +79,13 @@ function auctionCard(auction,imageURI){
     btn2.onclick = async() => {
         let token = localStorage.getItem("token");
         let cid = localStorage.getItem("cid");
+        // console.log(new Date().toISOString());
+        const dateConverted = new Date(datetime);
+        dateConverted.setHours(dateConverted.getHours() + 5);
+        dateConverted.setMinutes(dateConverted.getMinutes() + 30);
+        // console.log(new Date().toISOString() > dateConverted.toISOString());
         if(cid && token){
-            if(new Date().toUTCString() > new Date(datetime).toISOString()){
+            if(new Date().toISOString() > dateConverted.toISOString()){
                 window.location = "/html/chatroom.html?aid=" + auction.aid;
             }else{
                 alert("The auction has not started yet");
