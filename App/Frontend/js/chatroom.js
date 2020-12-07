@@ -224,3 +224,9 @@ increaseBtn.onclick = (event) => {
         myBid.value = Number(myBidValue) + incrementValue;
     }
 }
+
+document.getElementById("leave-room").onclick = (event)=> {
+    event.preventDefault();
+
+    window.location.href = "/";
+}
