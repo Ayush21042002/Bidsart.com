@@ -64,7 +64,7 @@ function auctionCard(auction,imageURI){
     h4t.className = "auctiontime text-white";
     let datetime = auction.startTime.replace("T"," ").split(".")[0];
     h4d.innerHTML = datetime.split(" ")[0];
-    h4t.innerHTML = datetime.split(" ")[1];
+    h4t.innerHTML = datetime.split(" ")[1] + " UTC";
     var p = document.createElement("p");
     p.innerHTML = "<i class='fas fa-rupee-sign'></i> " + auction.minBid;
     div3.append(h4d);

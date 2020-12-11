@@ -50,7 +50,7 @@ function addProduct(imgURL,title,pid,Orderid,amount,paid,invoice){
         </div>
    */
     let newDiv=document.createElement('div');
-    newDiv.className="col-sm-4";
+    newDiv.className="col-lg-6";
     let div2=document.createElement('div');
     div2.className='card';
     div2.style.border='none';
@@ -68,6 +68,7 @@ function addProduct(imgURL,title,pid,Orderid,amount,paid,invoice){
     btn.className='details';
     btn.href = "./product.html?type=" + pid;
     btn.style.outline='none';
+    btn.style.textDecoration = 'none';
     btn.innerHTML='View Details';
     div4.appendChild(btn);
     div3.appendChild(div4);

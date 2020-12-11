@@ -199,9 +199,9 @@ function checkCurrentBid(bid){
         incrementValue = 50;
     }else if(bid >= 1000 && bid < 5000){
         incrementValue = 100;
-    }else if(bid >= 5000 && bid < 9999){
+    }else if(bid >= 5000 && bid < 10000){
         incrementValue = 200;
-    }else if(bid >=10000 && bid < 49999){
+    }else if(bid >=10000 && bid < 50000){
         incrementValue = 500;
     }else if(bid >= 50000 && bid < 100000){
         incrementValue = 1000;

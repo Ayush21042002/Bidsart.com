@@ -1,3 +1,5 @@
+document.onload = loaddata();
+
 async function loaddata(){
     const response=await fetch('/product/allAuctions',{
         method: "GET"
@@ -12,59 +14,80 @@ async function loaddata(){
     }
   }
   
-  loaddata().catch(error=>{
-      console.log('error!');
-      console.error(error);
-  });
-
-
   function creatediv(givendata){
-
-      console.log(givendata);
-      var grandparentdiv = document.getElementsByClassName("gridmain")[0];
+    /* 
+        <div class="col-sm-4">
+				<div class="card" style="border: none;">
+					<div class="img-box" style="height: 14rem;">
+					  <img class="card-img-top" src="../images/4.jpg" alt="Card image cap">
+					  <div class="image-overlay">
+					    <button class="details" style="outline: none;">View Details</button>
+					  </div>
+					</div>
+					<div class="card-body">
+						<p class="card-text">Name
+						  <br>Artist
+						</p>
+					</div>
+				</div>
+		  </div>
+    */
+      var grandparentdiv = document.getElementById("auction-row");
 
       var parentdiv = document.createElement('div');
-      parentdiv.className = 'gridcon';
+      parentdiv.className = 'col-lg-4';
       grandparentdiv.appendChild(parentdiv);
       // image-button
-      var bttn = document.createElement('button');
-      bttn.className="bttn";
-      parentdiv.appendChild(bttn);
+      var divCard = document.createElement("div");
+      divCard.className = "card";
+      divCard.style = "border:none";
+      parentdiv.appendChild(divCard);
+
+      var imgBox = document.createElement("div");
+      imgBox.className = "img-box";
+      imgBox.style = "height:14rem;";
+
+      divCard.appendChild(imgBox);
+      
 
       //image 
       var img = document.createElement('img');
-      img.className = 'bidimage';
+      img.className = 'card-img-top';
       img.setAttribute('src' , givendata.imageURI);
-      bttn.appendChild(img);
+      imgBox.appendChild(img);
 
-      //auction time
-      var scheduletime = document.createElement('div');
-      scheduletime.className ='schedule';
-      var date = givendata.startTime.split("T")[0];
-      var time = givendata.startTime.split("T")[1].split(".")[0] + " UTC";
-      var text = `<p><strong>`+date +` </strong><strong>`+time+`</strong></p>`;
-      scheduletime.innerHTML = text;;
-      parentdiv.appendChild(scheduletime);
-    
+      
+      var overlay = document.createElement("div");
+      overlay.className = "image-overlay";
+      imgBox.appendChild(overlay);
+
+      var link = document.createElement("a");
+      link.href = "./product.html?id="+ givendata.pid;
+      link.style = "color:black;";
+      link.innerHTML = "View Product<br>";
+      
+      var details = document.createElement("div");
+      details.className = "details";
+      details.innerHTML = givendata.startTime.split("T")[0] + " " + givendata.startTime.split("T")[1].split(".")[0] + " UTC";
+      overlay.appendChild(details);
+
+      var cardBody = document.createElement("div");
+      cardBody.className = "card-body";
+      divCard.appendChild(cardBody);
+
+      var p = document.createElement("p");
+      p.innerHTML = "Starting Bid: <strong><i class='fas fa-rupee-sign'></i> " + givendata.minBid+ ".00</strong>"
       //bid rate
-      var bidrate = document.createElement('div');
-      bidrate.className = 'bidrate p-3';
-      text = `<p  class="text-success">Starting Bid: <strong><i class="fas fa-rupee-sign"></i> `+givendata.minBid+`.00</strong></p>`;
-      bidrate.innerHTML = text;
-      parentdiv.appendChild(bidrate);
+      
+      cardBody.appendChild(p);
+      cardBody.appendChild(link);
 
       //register button
       var button = document.createElement('button');
-      button.className = 'bidbttn';
+      button.className = 'register-btn';
       button.innerHTML = 'Register now';
-      parentdiv.appendChild(button);
 
-      bttn.onclick = function(){
-        var str1 = "./product.html?id=";
-        var str2 = givendata.pid;
-        var link = str1+str2;
-       window.location.href = link ;
-      }
+      cardBody.appendChild(button);
 
       button.onclick = async() => {
         let token = localStorage.getItem("token");
