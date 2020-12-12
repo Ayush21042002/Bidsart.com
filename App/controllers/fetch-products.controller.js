@@ -112,3 +112,27 @@ exports.getProductByAuctionId = (req,res) => {
     });
   }
 };
+
+exports.getNewProducts = (req,res) => {
+    con.query("select p.*,s.sid,s.name from product p inner join seller s on s.sid = p.sid order by created_at limit 9; SELECT * from image order by pid;", (err, result) => {
+      if (err) {
+        throw err;
+      }
+    //   console.log(result);
+      const resp = [];
+      for(let i=0;i<result[0].length;i++){
+        const product = {
+          pid: result[0][i].pid,
+          sid: result[0][i].sid,
+          artist_name: result[0][i].name,
+          title: result[0][i].title,
+          description: result[0][i].description,
+          category: result[0][i].category,
+          images: result[1].filter( (item) => item.pid == result[0][i].pid),
+        };
+        resp.push(product);
+      }
+      // console.log(resp);
+      res.json(resp);
+    });
+};

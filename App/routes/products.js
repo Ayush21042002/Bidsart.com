@@ -17,6 +17,8 @@ const Router = express.Router();
 // Get Request
 Router.get('/', fetchProducts.getAllProducts);
 
+Router.get("/newArrival",fetchProducts.getNewProducts);
+
 Router.get("/allAuctions",fetchAuctions.getAllAuctions);
 
 Router.get('/:id', fetchProducts.getProductByProductId);
