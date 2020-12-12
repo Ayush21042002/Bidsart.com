@@ -1,3 +1,6 @@
+
+<img src="App/Frontend/images/LOGO.png" height="300"/>
+
 # BIDSART.COM
 
 **``` A ECOMMERCE BIDDING WEBSITE FOR INDIAN ARTS, CRAFTS AND MANY MORE ARTISTIC WORKS WHICH ARE SOLD IN A AUCTION WHERE PEOPLE CAN BID```**
@@ -10,15 +13,21 @@
   * JS
   * Bootstrap
 
-* ### Backend
-  * Node.js
+* ### Backend: Node.js
+  Node.js
+  Dependencies
   * Express
   * Multer
   * JWT
   * BcryprtJS
+  * Paypal-Rest-SDK
+  * Mysql Driver
+  * EasyInvoice
+  * Moment
+  * Socket.io
   
 * ### DBMS
-  * MySQL server
+  * MySQL 
 
 * ### Others:
   * Postman: 
