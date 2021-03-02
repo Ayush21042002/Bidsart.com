@@ -10,7 +10,8 @@ async function loadNewProducts(){
 
     const json = await response.json();
     var count = 0,row_number = 1;
-    for(let i=0;i<9;i++){
+    var length = (json.length < 9) ? json.length : 9;
+    for(let i=0;i<length;i++){
         if(count != 0 && count%3 == 0){
             row_number++;
         }

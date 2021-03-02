@@ -2,7 +2,7 @@ const con = require("../database/db");
 
 exports.addProduct = (req,resp) => {
   //construct a url to server
-  const url = req.protocol + "://" + req.get('host');
+  const url = "https://bidsart.herokuapp.com/";
 
   if(!req.body.title || req.body.title == ""){
     resp.status(400).json({

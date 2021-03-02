@@ -27,7 +27,9 @@ async function catchJson(){
     for(var i=0;i<data.length;i++){
        let category=data[i].category;
        if(category==="handicrafts"){
-          let imgLink= data[i].images[0].imageURI;
+         let imgLink; 
+         if(data[i].images[0])
+            imgLink= data[i].images[0].imageURI;
           let title=data[i].title;
           count++;
           addProduct(imgLink,title,data[i].pid);

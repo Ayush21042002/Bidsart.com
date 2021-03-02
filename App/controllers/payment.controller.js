@@ -33,8 +33,8 @@ exports.makePayment = (req,response) => {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": "http://localhost:3000/customer/success/" + orderid,
-                "cancel_url": "http://localhost:3000/customer/cancel"
+                "return_url": "https://bidsart.herokuapp.com/customer/success/" + orderid,
+                "cancel_url": "https://bidsart.herokuapp.com/customer/cancel"
             },
             "transactions": [{
                 "item_list": {
@@ -118,7 +118,7 @@ exports.successHandler = (req,res) => {
                         "marginRight": 25,
                         "marginLeft": 25,
                         "marginBottom": 25,
-                        "logo": "http://localhost:3000/images/LOGO.png", //or base64
+                        "logo": "https://bidsart.herokuapp.com/images/LOGO.png", //or base64
                         //"logoExtension": "png", //only when logo is base64
                         "sender": {
                             "company": sellerProduct.name,
